@@ -1,0 +1,15 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Feedback extends Model
+{
+    protected $fillable = ['trainer_id','voice_range','voice_clearity','communication_skills','rapport_building','interaction','topic_usefulness','material_organization','speakers_knowledge','comments'];
+    
+    public function trainer()
+    {
+        return $this->belongsTo('App\Trainer');
+    }
+}
