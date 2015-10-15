@@ -20,6 +20,7 @@
                 <div align = "center">
                        <legend><b><h2>Feedback Form</h2></b></legend>
                    </div>
+                   
                 <div class="form-group">
 
                         <label for="title" class="col-lg-2 control-label">Speaker's Name: </label>
