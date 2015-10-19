@@ -45,16 +45,22 @@
 
     @yield('script')
     <![endif]-->
+    <link rel="stylesheet" href="{!! asset('assets/course-style/style.css') !!}">
+    <style>
+        @yield('style')
+    </style>
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-purple sidebar-mini">
 <script src="{!! asset('js/bootstrap.min.js') !!}"></script>
-<div class="wrapper">
+<div class="wrapper" style="background-color: #558b2f">
 
     <header class="main-header">
         <!-- Logo -->
         <a href="index2.html" class="logo">
+
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>A</b>LT</span>
+            <span class="logo-mini" ><b>BARD</b></span>
+                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" align="left">
             <!-- logo for regular state and mobile devices -->
             <span class="logo-lg"><b>BARD</b>Admin</span>
         </a>
@@ -64,117 +70,189 @@
             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                 <span class="sr-only">Toggle navigation</span>
             </a>
-            <div class="navbar-custom-menu">
-                <ul class="nav navbar-nav">
-
-                    <!-- Notifications: style can be found in dropdown.less -->
-
-                    <!-- Tasks: style can be found in dropdown.less -->
-
-                    <!-- User Account: style can be found in dropdown.less -->
-                    <li class="dropdown user user-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <span class="hidden-xs">Alexander Pierce</span>
-                        </a>
-
-                    </li>
-                    <!-- Control Sidebar Toggle Button -->
-                    <li>
-                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                    </li>
-                </ul>
-            </div>
+           
         </nav>
     </header>
     <!-- Left side column. contains the logo and sidebar -->
-    <aside class="main-sidebar">
+    <aside class="main-sidebar"  style="background-color:#004d40">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
             <!-- Sidebar user panel -->
-            <div class="user-panel">
-                <div class="pull-left image">
-                    <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                </div>
-                <div class="pull-left info">
-                    <p>Admin</p>
-                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-                </div>
-            </div>
-            <!-- search form -->
-            <form action="#" method="get" class="sidebar-form">
-                <div class="input-group">
-                    <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
-                </div>
-            </form>
-            <!-- /.search form -->
+           
+            
+           
+            
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
-                <li class="header">MAIN NAVIGATION</li>
-                <li class="active treeview">
+                <li class="header"  style="background-color:#00b8d4">MAIN NAVIGATION</li>
+                <li class="treeview">
                     <a href="#">
                         <i class="fa fa-dashboard"></i> <span>HealthInfo</span> <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="active"><a href="{{ URL::to('/healthCreate') }}"><i class="fa fa-circle-o"></i> Create Info</a></li>
-                        <li class="active"><a href="adminHealthInfos"><i class="fa fa-circle-o"></i> All Health Info</a></li>
+                        <li class=""><a href="/adminHealthInfos"><i class="fa fa-circle-o"></i> All Health Info</a></li>
+
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-calendar"></i> <span>Calendar</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class=""><a href="{{ URL::to('/calendar/create') }}"><i class="fa fa-circle-o"></i> Create Calendar</a></li>
+                        <li class=""><a href="{{ URL::to('/calendar') }}"><i class="fa fa-circle-o"></i> All Calendar</a></li>
+
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-link"></i> <span>Training Trainee Assign</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class=""><a href="{{ URL::to('/user_traininginfo/create') }}"><i class="fa fa-circle-o"></i> Training Trainee Assign</a></li>
+                        <li class=""><a href="{{ URL::to('/user_traininginfo') }}"><i class="fa fa-circle-o"></i> All Training Trainee</a></li>
+
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-link"></i> <span>Trainer Course Assign</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class=""><a href="{{ URL::to('/trainer_course/create') }}"><i class="fa fa-circle-o"></i> Trainer Course Assign</a></li>
+                        <li class=""><a href="{{ URL::to('/trainer_course') }}"><i class="fa fa-circle-o"></i> All Trainer Course</a></li>
+
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-link"></i> <span>Trainee Course Assign</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class=""><a href="{{ URL::to('/selectTraining') }}"><i class="fa fa-circle-o"></i> Trainee Course Assign</a></li>
+                        <li class=""><a href="{{ URL::to('/traineeCourse') }}"><i class="fa fa-circle-o"></i> All Trainee Course</a></li>
+
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-link"></i> <span>Marksheet</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class=""><a href="{{ URL::to('/marksheet') }}"><i class="fa fa-circle-o"></i> Marksheet</a></li>
+{{--                        <li class=""><a href="{{ URL::to('/listOfstudentsAndMarks') }}"><i class="fa fa-circle-o"></i> All Trainee Course</a></li>--}}
+
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-link"></i> <span>Exam</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class=""><a href="{{ URL::to('/exam/create') }}"><i class="fa fa-circle-o"></i> Create Exam</a></li>
+                        <li class=""><a href="{{ URL::to('/exam') }}"><i class="fa fa-circle-o"></i> All Exam</a></li>
+
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-link"></i> <span>Trainee Registration</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class=""><a href="{{ URL::to('/registration/create') }}"><i class="fa fa-circle-o"></i> Registration</a></li>
+                        <li class=""><a href="{{ URL::to('/registration') }}"><i class="fa fa-circle-o"></i> All registration</a></li>
 
                     </ul>
                 </li>
                 {{--Following created by localhost--}}
-                <li class="active treeview">
+                <li class="treeview">
                     <a href="#">
                         <i class="fa fa-users"></i> <span>Clients</span> <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="active"><a href="{{ URL::to('admin/clients') }}"><i class="fa fa-circle-o"></i>All Clients</a></li>
-                        <li class="active"><a href="{{ URL::to('/clients/create') }}"><i class="fa fa-circle-o"></i>Create a Clients</a></li>
-                        <li class="active"><a href="{{ URL::to('/clients/create_newsletter') }}"><i class="fa fa-circle-o"></i>Send Newsletter</a></li>
+                        <li class=""><a href="{{ URL::to('admin/clients') }}"><i class="fa fa-circle-o"></i>All Clients</a></li>
+                        <li class=""><a href="{{ URL::to('/clients/create') }}"><i class="fa fa-circle-o"></i>Create a Clients</a></li>
+                        <li class=""><a href="{{ URL::to('/clients/create_newsletter') }}"><i class="fa fa-circle-o"></i>Send Newsletter</a></li>
 
                     </ul>
                 </li>
-                <li class="active treeview">
+                <li class=" treeview">
                     <a href="#">
                         <i class="fa fa-user"></i> <span>Users</span> <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="active"><a href="{{ URL::to('/user/all') }}"><i class="fa fa-circle-o"></i>All Users</a></li>
-                        <li class="active"><a href="{{ URL::to('/user/registration') }}"><i class="fa fa-circle-o"></i>Create User</a></li>
+                        <li class=""><a href="{{ URL::to('/user/all') }}"><i class="fa fa-circle-o"></i>All Users</a></li>
+                        <li class=""><a href="{{ URL::to('/user/registration') }}"><i class="fa fa-circle-o"></i>Create User</a></li>
                     </ul>
                 </li>
-                <li class="active treeview">
+                <li class="treeview">
                     <a href="#">
                         <i class="fa fa-book"></i> <span>Course</span> <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="active"><a href="{{ URL::to('/courses') }}"><i class="fa fa-circle-o"></i>All Coures</a></li>
-                        <li class="active"><a href="{{ URL::to('/create_course') }}"><i class="fa fa-circle-o"></i>Create Course</a></li>
+                        <li class=""><a href="{{ URL::to('/courses') }}"><i class="fa fa-circle-o"></i>All Coures</a></li>
+                        <li class=""><a href="{{ URL::to('/create_course') }}"><i class="fa fa-circle-o"></i>Create Course</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-book"></i> <span>BardTrainers</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{!! URL::to('bardtrainers') !!}"><i class="fa fa-circle-o"></i> BardTrainers</a></li>
+                                <li class=""><a href="{{ URL::to('/bardtrainer_create') }}"><i class="fa fa-circle-o"></i>Create BardTrainer</a></li>
+                        
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-picture-o"></i> <span>Slider Management</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class=""><a href="{{ URL::to('/slider/all') }}"><i class="fa fa-circle-o"></i>All slider</a></li>
+                        <li class=""><a href="{{ URL::to('/slider/create') }}"><i class="fa fa-circle-o"></i>Add New</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-newspaper-o"></i> <span>Report</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class=""><a href="{{ URL::to('/select_training') }}"><i class="fa fa-circle-o"></i>All report</a></li>
                     </ul>
                 </li>
 
-                <li class="active treeview">
+                <li class="treeview">
                     <a href="#">
                         <i class="fa fa-files-o"></i>
                         <span>Trainings</span>
                         <span class="label label-primary pull-right">4</span>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="active"><a href="{{ URL::to('/training_info') }}"><i class="fa fa-circle-o"></i>Create Training</a></li>
-                        <li class="active"><a href="{{ URL::to('/trainings') }}"><i class="fa fa-circle-o"></i> Training List</a></li>
-                        <li class="active treeview">
+                        <li class=""><a href="{{ URL::to('/training_info') }}"><i class="fa fa-circle-o"></i>Create Training</a></li>
+                        <li class=""><a href="{{ URL::to('/trainings') }}"><i class="fa fa-circle-o"></i> Training List</a></li>
+                        <li class=" treeview">
+                            <a href="#">
+                                <i class="fa fa-files-o"></i>
+                                <span>Trainers</span>
+                                <span class="label label-primary pull-right">4</span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="{!! URL::to('adminTrainers') !!}"><i class="fa fa-circle-o"></i>Trainer List</a></li>
+                            </ul>
+                        </li>
+                        <li class=" treeview">
                             <a href="#">
                                 <i class="fa fa-files-o"></i>
                                 <span>Testimonial</span>
                                 <span class="label label-primary pull-right">4</span>
                             </a>
                             <ul class="treeview-menu">
-                                <li class="active"><a href="{{ URL::to('/create_testimonial') }}"><i class="fa fa-circle-o"></i>Create Testimonial</a></li>
+                                <li class=""><a href="{{ URL::to('/create_testimonial') }}"><i class="fa fa-circle-o"></i>Create Testimonial</a></li>
                                 <li><a href="{{ URL::to('/testimonials') }}"><i class="fa fa-circle-o"></i> Testimonial List</a></li>
                             </ul>
                         </li>
-                        <li class="active treeview">
+                        <li class=" treeview">
                             <a href="#">
                                 <i class="fa fa-files-o"></i>
                                 <span>FAQs</span>
@@ -196,30 +274,16 @@
                         <span class="label label-primary pull-right">4</span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i>Trainers</a></li>
-                        <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Trainees</a></li>
+                        <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i>Trainers</a></li>
+                        <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Trainees</a></li>
                         <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Feedback</a></li>
 
                     </ul>
                 </li>
-                <li>
-                    <a href="pages/widgets.html">
-                        <i class="fa fa-th"></i> <span>Widgets</span> <small class="label pull-right bg-green">new</small>
-                    </a>
-                </li>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-pie-chart"></i>
-                        <span>Charts</span>
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
-                        <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
-                        <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
-                        <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
-                    </ul>
-                </li>
+                
+               
+               
+                
                 <li class="active treeview">
                     <a href="#">
                         <i class="fa fa-files-o"></i>
@@ -231,13 +295,25 @@
                         <li><a href="{{ URL::to('/announcements') }}"><i class="fa fa-circle-o"></i> Announcement List</a></li>
                     </ul>
                 </li>
+                 <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-files-o"></i>
+                        <span>Feedbacks</span>
+                        <span class="label label-primary pull-right"></span><i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{ URL::to('/feedbackView') }}"><i class="fa fa-circle-o"></i>All Feedbacks</a></li>
+                       
+                    </ul>
+                </li>
             </ul>
         </section>
         <!-- /.sidebar -->
     </aside>
 
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <!-- Content Wrapper. Contains page content -->>
+
+             <div class="content-wrapper" >
 
 
         <!-- Main content -->
@@ -460,5 +536,11 @@
 <script src="{!! asset('dist/js/pages/dashboard.js') !!}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{!! asset('dist/js/demo.js') !!}"></script>
+
+<script language="JavaScript" type="text/javascript">
+    <!--
+    document.write("<a href= \"" + document.location + "#top\">Back to top</a>");
+    // -->
+    </script>
 </body>
 </html>

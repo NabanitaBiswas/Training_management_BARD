@@ -1,0 +1,36 @@
+<?php $__env->startSection('content'); ?><br>
+    <div class="container col-md-8 col-md-offset-2">
+        <div class="well well bs-component">
+            <h1 style="text-align: center;">List of exam created by u.</h1>
+            <?php foreach($errors->all() as $error): ?>
+                <p class="alert alert-danger"><?php echo e($error); ?></p>
+            <?php endforeach; ?>
+            <?php if(session('status')): ?>
+                <div class="alert alert-success">
+                    <?php echo e(session('status')); ?>
+
+                </div>
+            <?php endif; ?>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Name of the Exam</th>
+                    <th>Add Marks</th>
+                    <th>View Marks</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach($exams as $exam): ?>
+                    <tr>
+                        <td><?php echo e($exam->title); ?></td>
+                        <td><a href="marksheet/<?php echo e($exam->id); ?>/traineesOfThatExam">Add Marks</a></td>
+                        <td><a href="listOfstudentsAndMarks">View Marks</a></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin/layouts/master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

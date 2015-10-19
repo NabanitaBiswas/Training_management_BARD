@@ -31,6 +31,7 @@ class RegistrationForm extends Migration
             $table->integer("mobile")->unsigned();
             $table->date("joining_date");
             $table->integer("service_code");
+            $table->integer("training_id");
             $table->string("marital_status");
             $table->string("contact_person_name");
             $table->string("contact_person_address");

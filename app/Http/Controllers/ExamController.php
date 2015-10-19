@@ -7,9 +7,15 @@ use App\Exam;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ExamController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('trainer');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +23,7 @@ class ExamController extends Controller
      */
     public function index()
     {
-        $exams=Exam::all()->sortByDesc('id');
+        $exams=Exam::whereadmin_id(auth()->user()->id)->get()->sortByDesc('id');
         return view('exam.index',compact('exams'));
     }
 
@@ -42,6 +48,8 @@ class ExamController extends Controller
     {
         //dd($request);
         $input=$request->all();
+        $trainerId=auth()->user()->id;
+        //dd($trainerId);
         $exam=new Exam();
 
         $exam->title=$input['title'];
@@ -49,6 +57,7 @@ class ExamController extends Controller
         $exam->exam_date=$input['exam_date'];
         $exam->course_id=$input['course_id'];
         $exam->exam_mark=$input['exam_mark'];
+        $exam->admin_id=$trainerId;
         //$exam->admin_id=$input['admin_id'];//user id
         $exam->save();
 

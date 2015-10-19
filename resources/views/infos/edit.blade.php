@@ -1,3 +1,4 @@
+
 @extends('master/master')
 @section('title', 'Trainee')
 @section('content')
@@ -5,7 +6,7 @@
         <div class="well well bs-component">
 
             <form class="form-horizontal" method="post">
-
+                <input type="hidden" name="trainee_login_id" id="" value="{{ $user_id }}">
                 @foreach ($errors->all() as $error)
                     <p class="alert alert-danger">{{ $error }}</p>
                 @endforeach

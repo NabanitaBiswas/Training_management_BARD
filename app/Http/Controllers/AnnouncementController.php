@@ -10,6 +10,11 @@ use App\Http\Requests\AnnouncementFormRequest;
 
 class AnnouncementController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin', ['only' => ['index', 'store','show','edit','update','destroy','announcement']]);//for selected multiple files
+        //$this->middleware('auth',['except'=>'index']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,23 +22,19 @@ class AnnouncementController extends Controller
      */
     public function index()
     {
-        //$limit=3;
-        //$announcement = Announcement::orderBy('created_at','desc')->limit($limit)->get();
         $announcement = Announcement::orderBy('created_at','desc')->get();
         return view('announcements.index', compact('announcement'));
     }
-    /*public function publicIndex()
-    {
-        $limit=3;
-        $announcement = Announcement::orderBy('created_at','desc')->limit($limit)->get();
-        return view('public_announcement_pages.index', compact('announcement'));
-    }*/
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
+    public function publicIndex(){
+        $announcement = Announcement::orderBy('created_at','desc')->get();
+        return view('announcements.public_announcement_pages.index', compact('announcement'));
+    }
     public function announcement()
     {
         return view('announcements/announcement');
@@ -50,7 +51,6 @@ class AnnouncementController extends Controller
         $announcement = new Announcement(array(
             'heading' => $request->get('heading'),
             'content'=>$request->get('content'),
-
         ));
 
         $announcement->save();
@@ -68,7 +68,6 @@ class AnnouncementController extends Controller
         $announcement = Announcement::whereid($id)->firstOrFail();
         return view('announcements.show', compact('announcement'));
     }
-
     public function publicShow($id)
     {
         $announcement = Announcement::whereid($id)->firstOrFail();

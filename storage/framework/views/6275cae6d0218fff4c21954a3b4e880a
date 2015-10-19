@@ -1,0 +1,91 @@
+<?php $__env->startSection('content'); ?>
+    <script
+        src="http://maps.googleapis.com/maps/api/js">
+        </script>
+        <script>
+        var myCenter=new google.maps.LatLng(23.434564,91.132364);
+        var marker;
+        var infowindow;
+
+        function initialize()
+        {
+        var mapProp = {
+          center:myCenter,
+          zoom:14,
+          mapTypeId:google.maps.MapTypeId.ROADMAP
+          };
+
+        var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+
+        var marker=new google.maps.Marker({
+          position:myCenter,
+          animation:google.maps.Animation.BOUNCE
+          });
+        
+        var infowindow = new google.maps.InfoWindow({
+          content:"BARD, Comilla"
+        });
+        
+        marker.setMap(map);
+        infowindow.open(map,marker);
+        }
+        
+        google.maps.event.addDomListener(window, 'load', initialize);
+         
+    </script>
+    <section class="content-2 col-12" style="background-color: rgb(255, 255, 255);">
+        <div class="container col-md-8 col-md-offset-2">
+            <h2 class="text-center">Contact Us</h2>
+            <br><br>
+            <div class="well well bs-component">
+                <br><br>
+                <form class="form-horizontal" method="post">
+                    <?php if(session('status')): ?>
+                        <p class="alert alert-success"><?php echo e(session('status')); ?></p>
+                    <?php endif; ?>
+                    <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                    <fieldset>
+        
+                        <div class="form-group">
+                            <label for="title" class="col-lg-2 control-label">Name</label>
+                            <div class="col-lg-10">
+                                <input type="text" class="form-control" id="name" name="name" value="<?php echo e(old('name')); ?>">   
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="content" class="col-lg-2 control-label">Email</label>
+                            <div class="col-lg-10">
+                                <input type="email" class="form-control"  id="email" name="email" value="<?php echo e(old('email')); ?>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="content" class="col-lg-2 control-label">Phone Number</label>
+                            <div class="col-lg-10">
+                                <input type="text" class="form-control" id="phone" name="phone" value="<?php echo e(old('phone')); ?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="content" class="col-lg-2 control-label">Message</label>
+                            <div class="col-lg-10">
+                                <textarea rows="5" class="form-control" id="message" name="message"><?php echo e(old('message')); ?></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-lg-10 col-lg-offset-2">
+                                <button type="submit"class="btn btn-info">Cancel</button>
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="content" class="col-lg-2 control-label">BARD</label>
+                            <div class="col-lg-10" id="googleMap" style="width:100%;height:600px;"></div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>       
+    </section>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master/master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

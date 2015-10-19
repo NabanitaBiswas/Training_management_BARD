@@ -17,7 +17,7 @@ class BardClientsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except' => 'index']);
+        $this->middleware('admin', ['except' => 'index']);
     }
     /**
      * Display a listing of the resource.
@@ -57,11 +57,17 @@ class BardClientsController extends Controller
      */
     public function store(ClientsFormRequest $request)
     {
+        $slug = uniqid();
+        $file = $request->file('client_logo');
+        $file->move('uploads/', $slug . '__' .$file->getClientOriginalName());
+        $file_text = $slug . '__' .$file->getClientOriginalName();
+
         $client = new Client(array(
             'client_name' => $request->get('client_name'),
             'client_email' => $request->get('client_email'),
             'client_phone_number' => $request->get('client_phone_number'),
-            'client_address' => $request->get('client_address')
+            'client_address' => $request->get('client_address'),
+            'client_logo' => $file_text
         ));
         $client->save();
         return redirect('/clients/create')->with('status', 'Clients '. $request->get('client_name').' Created');
@@ -100,13 +106,23 @@ class BardClientsController extends Controller
      */
     public function update(ClientsFormRequest $request, $id)
     {
+        $slug = uniqid();
+        $file = $request->file('client_logo_update');
+        if(empty($file)){
+            $file_text = $request->get('client_logo');
+        }else{
+            unlink('uploads/'.$request->get('client_logo'));
+            $file->move('uploads/', $slug . '__' .$file->getClientOriginalName());
+            $file_text = $slug . '__' .$file->getClientOriginalName();
+        }
         $client = Client::whereId($id)->firstOrFail();
         $client->client_name = $request->get('client_name');
         $client->client_email = $request->get('client_email');
         $client->client_phone_number = $request->get('client_phone_number');
         $client->client_address = $request->get('client_address');
+        $client->client_logo = $file_text;
         $client->save();
-        return redirect('clients');
+        return redirect('admin/clients');
     }
 
     /**
@@ -117,7 +133,9 @@ class BardClientsController extends Controller
      */
     public function destroy($id)
     {
-        Client::whereId($id)->delete();
-        return redirect('/clients');
+       $client =  Client::whereId($id)->first();
+        unlink('uploads/'.$client->client_logo);
+        $client->delete();
+        return redirect('/admin/clients');
     }
 }

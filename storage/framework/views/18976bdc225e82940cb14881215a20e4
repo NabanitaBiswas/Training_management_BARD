@@ -1,0 +1,70 @@
+<?php $__env->startSection('title', 'Announcement'); ?>
+<?php $__env->startSection('content'); ?>
+    <div class="container col-md-10 col-md-offset-2">
+        <div class="well well bs-component">
+            <form class="form-horizontal" method="post" id="announcementform">
+                <?php foreach($errors->all() as $error): ?>
+                    <p class="alert alert-danger"><?php echo e($error); ?></p>
+                <?php endforeach; ?>
+                <?php if(session('status')): ?>
+                    <div class="alert alert-success">
+                        <?php echo e(session('status')); ?>
+
+                    </div>
+                <?php endif; ?>
+                <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                <fieldset>
+                    <legend align="center"><font color="#004D40" size="15"><i>Announcement</i></font></legend>
+                    <div class="form-group">
+                        <label for="title" class="col-lg-2 control-label"><font color="#009688" size="3">Heading</font></label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="title" placeholder="Give a heading" name="heading" value="<?php echo e(old('heading')); ?>">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="content" class="col-lg-2 control-label"><font color="#009688" size="3">Content</font></label>
+                        <div class="col-lg-10">
+                            <textarea class="form-control" rows="5" id="content" placeholder="Write content" name="content" value=""><?php echo e(old('content')); ?></textarea>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-10 col-lg-offset-2">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('#announcementform').bootstrapValidator({
+                container: '#messages',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    heading: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Heading is required and cannot be empty'
+                            }
+                        }
+                    },
+                    content: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Content is required and cannot be empty'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

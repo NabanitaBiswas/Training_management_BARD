@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Site made with Mobirise Website Builder v1.9.7, http://mobirise.com -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="generator" content="Mobirise v1.9.7, mobirise.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title><?php echo $__env->yieldContent('title'); ?></title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:700,400&amp;subset=cyrillic,latin,greek,vietnamese">
+    <link rel="stylesheet" href="<?php echo asset('assets/bootstrap/css/bootstrap.min.css'); ?>">
+    <link rel="stylesheet" href="<?php echo asset('assets/mobirise/css/style.css'); ?>">
+    <link rel="stylesheet" href="<?php echo asset('assets/mobirise-slider/style.css'); ?>">
+    <link rel="stylesheet" href="<?php echo asset('assets/mobirise/css/mbr-additional.css'); ?>" type="text/css">
+    <link href="<?php echo asset('/assets/material_design/css/material.min.css'); ?>" rel="stylesheet">
+    <link href="<?php echo asset('/assets/material_design/css/ripples.min.css'); ?>" rel="stylesheet">
+
+</head>
+<body>
+
+<?php echo $__env->make('master_trainer/navbar', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->yieldContent('slider'); ?>
+<?php echo $__env->yieldContent('content'); ?>
+<?php echo $__env->yieldContent('testimonials'); ?>
+
+<script src="<?php echo asset('assets/jquery/jquery.min.js'); ?>"></script>
+<script src="<?php echo asset('assets/bootstrap/js/bootstrap.min.js'); ?>"></script>
+<script src="<?php echo asset('assets/bootstrap-carousel-swipe/bootstrap-carousel-swipe.js'); ?>"></script>
+<script src="<?php echo asset('assets/mobirise/js/script.js'); ?>"></script>
+<script src="<?php echo asset('/assets/material_design/js/ripples.min.js'); ?>"></script>
+<script src="<?php echo asset('/assets/material_design/js/material.min.js'); ?>"></script>
+<script>
+    $(document).ready(function() {
+        // This command is used to initialize some elements and make them work properly
+        $.material.init();
+    });
+</script>
+<?php echo $__env->yieldContent('script'); ?>
+</body>
+</html>

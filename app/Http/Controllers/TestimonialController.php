@@ -11,6 +11,12 @@ use App\Http\Controllers\Controller;
 
 class TestimonialController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('admin', ['only' => ['create','store','show','destroy']]);//for selected multiple files
+        //$this->middleware('auth',['except'=>'index']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -60,7 +66,8 @@ class TestimonialController extends Controller
     public function show()
     {
         $testimonials=Testimonial::all();
-        return view('testimonials.show',compact('testimonials'));
+        $trainings=Training::select('id','training_name')->get();
+        return view('testimonials.show',compact('testimonials','trainings'));
     }
 
     /**

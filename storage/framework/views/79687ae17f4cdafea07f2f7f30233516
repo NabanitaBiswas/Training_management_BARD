@@ -1,0 +1,35 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="<?php echo e(URL::to('/')); ?>"><img src="<?php echo asset('assets/images/logo.jpg'); ?>" alt=""></a>
+        </div>
+
+        <!-- Navbar Right -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="<?php if(isset($index)): ?>active <?php endif; ?>"><a href="<?php echo e(URL::to('/')); ?>" class="">HOME</a></li>
+
+                <li class="<?php if(isset($trainings)): ?>active <?php endif; ?> dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">TRAINING <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="<?php echo e(URL::to('/trainings')); ?>">All Training</a></li>
+                        <li><a href="<?php echo e(URL::to('/trainers')); ?>">Trainers</a></li>
+                        <li><a href="<?php echo e(URL::to('/trainees')); ?>">Trainees</a></li>
+                    </ul>
+                </li>
+                <li class="<?php if(isset($faculty)): ?>active <?php endif; ?>"><a href="<?php echo e(URL::to('/faculty')); ?>" class="">FACULTY</a></li>
+                <li class="<?php if(isset($clients)): ?>active <?php endif; ?>"><a href="<?php echo e(URL::to('/clients')); ?>" class="">CLIENTS</a> </li>
+                <li class="<?php if(isset($about)): ?>active <?php endif; ?>"><a href="<?php echo e(URL::to('/about')); ?>" class="">ABOUT</a></li>
+                <li class="<?php if(isset($contact)): ?>active <?php endif; ?>"><a href="<?php echo e(URL::to('/contact')); ?>" class="">CONTACT US</a> </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>

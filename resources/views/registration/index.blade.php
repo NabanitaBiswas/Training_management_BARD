@@ -1,4 +1,4 @@
-@extends('master/master')
+@extends('master.trainee_master')
 @section('content')
     <div class="container">
     <div class="row">

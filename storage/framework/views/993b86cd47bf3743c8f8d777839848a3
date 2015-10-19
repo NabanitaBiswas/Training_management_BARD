@@ -1,0 +1,60 @@
+<?php $__env->startSection('content'); ?>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <div class="container col-md-8 col-md-offset-2">
+        <?php if(session('status')): ?>
+            <div class="alert alert-success">
+                <?php echo e(session('status')); ?>
+
+            </div>
+        <?php endif; ?>
+        <h2 style="text-align: center">Trainee Course Relationship</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Serial No</th>
+                <th>Trainee Name</th>
+                <th>Course Name</th>
+                <th>ACTION
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach($traineeCourse as $key=>$traineeCourse): ?>
+                <tr>
+                    <td><?php echo e($key+1); ?></td>
+<?php /*                                    <td><?php echo e($traineeCourse->trainee_id); ?></td>*/ ?>
+                    <td>
+                        <?php foreach($trainees as $id=>$trainee): ?>
+                            <?php if($id==$traineeCourse->trainee_id): ?>
+                                <?php echo e($trainee); ?>
+
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </td>
+<?php /*                                    <td><?php echo e($traineeCourse->course_id); ?></td>*/ ?>
+                    <td>
+                        <?php foreach($courses as $id=>$course): ?>
+                            <?php if($id==$traineeCourse->course_id): ?>
+                                <?php echo e($course); ?>
+
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </td>
+                    <td>
+                        <a href="traineeCourse/<?php echo e($traineeCourse->id); ?>/edit" type="button">
+                            <i class="fa fa-pencil-square-o"></i>
+                        </a>
+                        <?php echo Form::open(array('method'=>'DELETE', 'route'=>array('traineeCourse.destroy',$traineeCourse->id))); ?>
+
+<?php /*                        <?php echo Form::submit('Delete', array('<i class="fa fa-pencil-square-o"></i>','onclick' => 'return confirm("Are you sure want to Delete?");')); ?>*/ ?>
+                        <button type="submit"><i class="fa fa-times"></i></button>
+                        <?php echo Form::close(); ?>
+
+
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

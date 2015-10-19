@@ -1,8 +1,8 @@
-@extends('master.master')
+@extends('admin/layouts/master')
 @section('content')<br>
     <div class="container col-md-8 col-md-offset-2">
         <div class="well well bs-component">
-            <h1 style="text-align: center;">List of exam talen by u.</h1>
+            <h1 style="text-align: center;">List of exam created by u.</h1>
             @foreach ($errors->all() as $error)
                 <p class="alert alert-danger">{{ $error }}</p>
             @endforeach

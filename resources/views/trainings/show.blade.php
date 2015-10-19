@@ -1,4 +1,4 @@
-@extends('master/master')
+@extends('admin.layouts.master')
 @section('title', 'View all trainings information')
 <style>
     b{
@@ -19,21 +19,28 @@
         text-align: justify;
         text-justify: inter-word;
     }
+
+
 </style>
+    <script>
+        function check(){
+            return confirm("Are You Sure? You Want To Delete This Training's Information.");
+        }
+    </script>
 @section('content')
     <div class="container col-md-12">
         <header align="center">
             <b>Bangladesh Academy For Rural Development(BARD)</b><br>
             <b>Kotbari,Comilla,Bangladesh</b><br>
             <b>{!! $training->training_name !!}</b>
-        </header>
-        <hr>
+        </header><hr>
+
 
         <div class="col-md-10 col-md-offset-2">
-            <div class="col-md-5 well well bs-component">
+            <div class="col-md-5">
 
                 <label>Training Type</label>
-                <p>{!! $training->training_type  !!}</p>
+                <p>{!! $training->training_type  !!}</p><hr>
 
                 <label>List of Courses</label>
                 <br>
@@ -62,7 +69,7 @@
 
 
             </div>
-            <div class="col-md-5 well well bs-component">
+            <div class="col-md-5">
                 <label>Resources Provided by to a Particular Training</label>
                 <p>{!! $training->provided_resources !!}</p><hr>
 
@@ -79,24 +86,9 @@
                         <i>Written by &nbsp;&nbsp;{!! $testimonial->author_name !!}</i><hr>
                     @endforeach
                 @endif
-
-
-
                 <label>Responsible person for Trainees</label>
-                <p>{!! $training->responsible_person !!}</p><hr>
+                <p>{!! $training->responsible_person !!}</p>
             </div>
-        </div>
-
-        <div class="col-md-10 col-md-offset-2">
-            <a href="{!! action('TrainingsController@edit', $training->id) !!}" class="btn btn-info pull-left">Edit</a>
-            <form method="post" action="{!! action('TrainingsController@destroy', $training->id) !!}" class="pull-left">
-                <input type="hidden" name="_token" value="{!! csrf_token() !!}">
-                <div class="form-group">
-                    <div>
-                        <button type="submit" class="btn btn-warning">Delete</button>
-                    </div>
-                </div>
-            </form>
         </div>
     </div>
 @endsection

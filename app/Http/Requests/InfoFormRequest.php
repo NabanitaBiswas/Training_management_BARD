@@ -27,6 +27,7 @@ class InfoFormRequest extends Request
         'name' => 'required|min:5',
         'trainee_id' => 'required|min:1',
         
+        
     ];
     }
 }

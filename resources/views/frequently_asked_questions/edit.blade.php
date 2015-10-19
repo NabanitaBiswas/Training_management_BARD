@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 @section('title', 'View FAQS')
 @section('content')
-    <div class="container col-md-8 col-md-offset-2">
+    <div class="container col-md-10 col-md-offset-2">
         <div class="well well bs-component" style="background-color: #43A047; color:white; font-size:larger" align="center"><h1>Frequently Asked Questions</br>(FAQs)</h1></div>
         <div class="well well bs-component">
             <form class="form-horizontal" method="post">

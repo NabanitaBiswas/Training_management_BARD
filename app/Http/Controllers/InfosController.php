@@ -6,39 +6,32 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\InfoFormRequest;
+use Illuminate\Support\Facades\Validators;
+use Illuminate\Support\Facades\DB;
 use App\Info;
+use App\Course;
+//use App\Http\Middleware\Auth;
+//use App\Http\Middleware\TraineeMiddleware;
+use Auth;
+
 class InfosController extends Controller
 {
+    public function __construct(){
+        $this->middleware('trainee');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function home()
-    {
-        //return view('welcome');
-        return view('home');
-    }
 
-     public function about()
-    {
-        //return view('welcome');
-        return view('about');
-    }
 
-     public function contact()
-    {
-        //return view('welcome');
-        return view('contact');
-    }
+  public function traineeHome()
+  {
+    return view('trainee.trainee');
+  }
 
-     public function trainer()
-    {
-        //return view('welcome');
-        return view('infos.index');
-    }
-
-    public function index()
+   public function index()
     {
           $infos = Info::all();
          return view('infos.index', compact('infos'))->with('trainings', 'active');
@@ -50,8 +43,11 @@ class InfosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('infos.create');
+    {   $courses = Course::all();
+        $user = Auth::User();
+        $user_id = $user->id;
+
+        return view('trainee.create', compact('courses'))->with('user_id', $user_id);
     }
 
     /**
@@ -71,6 +67,7 @@ class InfosController extends Controller
        // return $b;
         $expertiseString =$request->get('expertise');
         $expertise = serialize($expertiseString);
+        
        
        //$diseaseString = implode(",",$request->get('diseases[]') );
         //$expertString = implode(",",$request->get('expertise[]'));
@@ -80,6 +77,8 @@ class InfosController extends Controller
         'name' => $request->get('name'),
         'gender' => $request->get('gender'),
         'trainee_id' => $request->get('trainee_id'),
+        'trainee_login_id' => $request->get('trainee_login_id'),
+
         'institution' => $request->get('institution'),
         'educational_qualification' => $request->get('educational_qualification'),
         'service_experience' => $request->get('service_experience'),
@@ -107,11 +106,13 @@ class InfosController extends Controller
         'waist_abdomen' => $request->get('waist_abdomen'),
         'chest' => $request->get('chest'),
         'weight_end_course' => $request->get('weight_end_course'),
-        'slug' => $slug
+        'slug' => $slug,
+
+         'course_id'=>$request->get('training_name'),
         ));
         $info->save();
 
-         return redirect('/trainee_create')->with('status', 'Congratulation!! Your form submission is successfull!! ');
+        return redirect('/trainee_create')->with('status', 'Congratulation!! Your form submission is successfull!! ');
 
     }
 
@@ -128,6 +129,67 @@ class InfosController extends Controller
          $info = Info::whereSlug($slug)->firstOrFail();
          return view('infos.show', compact('info'));
     }
+    
+    //trainee profile
+    public function show_profile($id)
+    {
+
+         $info = Info::whereId($id)->firstOrFail();
+         return view('trainee.show', compact('info'));
+    }
+
+     public function edit_profile($id)
+    {
+        $info = Info::whereId($id)->firstOrFail();
+        $user = Auth::User();
+        $user_id = $user->id;
+        return view('trainee.edit', compact('info'))->with('user_id', $user_id);
+    }
+
+    public function update_profile($id, InfoFormRequest $request)
+    {
+        $info = Info::whereId($id)->firstOrFail();
+        $info->name = $request->get('name');
+        $info->gender = $request->get('gender');
+        $info->trainee_id = $request->get('trainee_id');
+        $info->trainee_login_id = $request->get('trainee_login_id');
+        $info->institution = $request->get('institution');
+        $info->educational_qualification = $request->get('educational_qualification');
+        $info->service_experience = $request->get('service_experience');
+        $info->experience_year = $request->get('experience_year');
+        $info->date_of_birth = $request->get('date_of_birth');
+        $info->birth_place = $request->get('birth_place');
+        $info->join_date = $request->get('join_date');
+        $info->guardians_name = $request->get('guardians_name');
+        $info->village = $request->get('village');
+        $info->post_office = $request->get('post_office');
+        $info->sub_district = $request->get('sub_district');
+        $info->district = $request->get('district');
+        $info->service_station = $request->get('service_station');
+        $info->marital = $request->get('marital');
+        $info->ph_home = $request->get('ph_home');
+        $info->ph_office = $request->get('ph_office');
+        $info->ph_mobile = $request->get('ph_mobile');
+       
+        $info->soprts = $request->get('soprts');
+        $info->hobby = $request->get('hobby');
+  
+        $info->interested_game = $request->get('interested_game');
+        $info->height = $request->get('height');
+        $info->weight = $request->get('weight');
+        $info->waist_abdomen = $request->get('waist_abdomen');
+        $info->chest= $request->get('chest');
+        $info->weight_end_course = $request->get('weight_end_course');
+       
+       if($request->get('status') != null) {
+            $info->status = 0;
+        } else {
+            $info->status = 1;
+        }
+        $info->save();
+        return redirect(action('InfosController@edit', $info->id))->with('status', 'The trainees information has been updated!');
+        }
+
 
     /**
      * Show the form for editing the specified resource.

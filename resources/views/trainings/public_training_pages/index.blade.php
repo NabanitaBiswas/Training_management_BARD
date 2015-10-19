@@ -1,72 +1,92 @@
 @extends('master.master')
-@section('title', 'View Information')
-
+@section('title', '`Trainings')
     <style>
-        label{
-            color: green;
-            font-size: larger;
-        }
         hr{
-            background-color: purple;
+            background-color: #FFCC80;
         }
-
-        h5{
-            font-family: Arial;
-            font-size: larger;
-        }
-
-
     </style>
 @section('content')
+
     <div class="container">
-        <div class="well well bs-component">
-            <div class="mdl-grid">
-                <div class="mdl-cell mdl-cell--2-col"></div>
-                <div class="mdl-cell mdl-cell--8-col">
-                    <div class="well" style="background-color: darkseagreen;">
-                            <h3 align="center">Trainings List</h3>
-                    </div>
-                </div>
-                <div class="mdl-cell mdl-cell--2-col"></div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading" style="background-color: whitesmoke; color: black;">
+                <h2 align="center">Trainings</h2>
             </div>
-            <div class="mdl-grid">
-                <div class="mdl-cell mdl-cell--2-col"></div>
-                <div class="mdl-cell mdl-cell--8-col">
-                    <div class="well well bs-component">
-                        @if ($trainings->isEmpty())
-                            <p> There is no available trainings.</p>
+
+            @if ($trainings->isEmpty())
+                <b>No Training Available.</b>
+            @else
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <h2 align="center"><font color="black">Ongoing Training</font></h2><hr>
+
+                        @if ($ongoingTrainings->isEmpty())
+                            <b>No Available Ongoing Trainings.</b>
                         @else
-                            <label><h4>Ongoing Training</h4></label><hr>
-                            <div>
-                                @foreach($trainings as $training)
-                                    @if(date('Y-m-d')>=$training->start_date && date('Y-m-d')<=$training->end_date )
-                                        <h5>{!! $training->training_name !!}<a href="{!! action('TrainingsController@publicShow', $training->id) !!}" class="btn btn-info" style="float: right;">VIEW</a></h5>
-                                    @endif
-                                @endforeach
-                            </div>
-
-                            <label><h4>Upcoming Training</h4></label><hr>
-                            <div>
-                                @foreach($trainings as $training)
-                                    @if(date('Y-m-d')<$training->start_date)
-                                        <h5>{!! $training->training_name !!}<a href="{!! action('TrainingsController@publicShow', $training->id) !!}" class="btn btn-info" style="float: right;">VIEW</a></h5>
-                                    @endif
-                                @endforeach
-                            </div>
-
-                            <label><h4>Past Training</h4></label><hr>
-                            <div class="inline">
-                                @foreach($trainings as $training)
-                                    @if(date('Y-m-d')>$training->end_date)
-                                        <h5>{!! $training->training_name !!}<a href="{!! action('TrainingsController@publicShow', $training->id) !!}" class="btn btn-info" style="float: right;">VIEW</a></h5>
-                                    @endif
-                                @endforeach
-                            </div>
+                            @foreach($ongoingTrainings as $training)
+                                <div class="col-md-4">
+                                    <div class="course_gellary">
+                                        <div class="course_image">
+                                            <img src="{!! $training->image_path !!}" alt="No Training Image">
+                                        </div>
+                                        <div class="course_title">
+                                            <a href="{!! action('TrainingsController@publicShow', $training->id) !!}">{!! $training->training_name !!} </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
                         @endif
                     </div>
                 </div>
-                <div class="mdl-cell mdl-cell--2-col"></div>
-            </div>
+
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <h2 align="center"><font color="black">Upcoming Training</font></h2><hr>
+                        @if ($upcomingTrainings->isEmpty())
+                            <b>No Available Upgoing Trainings.</b>
+                        @else
+                            @foreach($upcomingTrainings as $training)
+                                <div class="col-md-4">
+                                    <div class="course_gellary">
+                                        <div class="course_image">
+                                            <img src="{!! $training->image_path !!}" alt="Course Image">
+                                        </div>
+                                        <div class="course_title">
+                                            <a href="{!! action('TrainingsController@publicShow', $training->id) !!}">{!! $training->training_name !!} </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <h2 align="center"><font color="black">Past Training</font></h2><hr>
+                        @if ($pastTrainings->isEmpty())
+                            <b>No Available Past Trainings.</b>
+                        @else
+                            @foreach($pastTrainings as $training)
+                                <div class="col-md-4">
+                                    <div class="course_gellary">
+                                        <div class="course_image">
+                                            <img src="{!! $training->image_path !!}" alt="Course Image">
+                                        </div>
+                                        <div class="course_title">
+                                            <a href="{!! action('TrainingsController@publicShow', $training->id) !!}">{!! $training->training_name !!} </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
+
 @endsection

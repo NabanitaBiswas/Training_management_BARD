@@ -23,7 +23,6 @@ class HealthFormRequest extends Request
     public function rules()
     {
         return [
-            'user_id' => 'required',
             'present_address' => 'required',
             'permanent_address' => 'required',
             'age_beginning_course' => 'required',

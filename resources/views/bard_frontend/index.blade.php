@@ -1,54 +1,100 @@
 @extends('master/master')
 @section('title', 'Home')
+@section('style')
+    .carousel-inner img{
+        height: 400px;
+        width: auto;
+    }
+@endsection
 @section('slider')
     <section class="mbr-slider carousel slide" data-ride="carousel" data-wrap="true" data-interval="false" id="slider-4" style="background-color: rgb(255, 255, 255);">
         <div class="mbr-section__container container boxed-slider">
-            <div>
-                <ol class="carousel-indicators">
-                    <li data-app-prevent-settings="" data-target="#slider-4" data-slide-to="0" class="active"></li><li data-app-prevent-settings="" data-target="#slider-4" data-slide-to="1"></li><li data-app-prevent-settings="" data-target="#slider-4" class="" data-slide-to="2"></li>
-                </ol>
-                <div class="carousel-inner" role="listbox">
-                    <div class="mbr-box mbr-section mbr-section--bg-adapted item dark center active">
-                        <div class="mbr-box__magnet">
-                            <div>
-                                <img src="{!! asset('assets/images/slide2.jpg') !!}">
-                                <div class="row"><div class="col-sm-8 col-sm-offset-2">
-                                        <div class="mbr-hero">
-                                            <h1 class="mbr-hero__text">Training</h1>
-                                            <p class="mbr-hero__subtext">Bard facilitates training for 3rd party organizations, contact us.</p>
-                                        </div>
-                                        <div class="mbr-buttons mbr-buttons--center"><a class="mbr-buttons__btn btn btn-lg btn-info" href="#">Contact Us</a></div>
-                                    </div></div>
+            @if($all_slider->isEmpty())
+                <div>
+                    <ol class="carousel-indicators">
+                        <li data-app-prevent-settings="" data-target="#slider-4" data-slide-to="0" class="active"></li><li data-app-prevent-settings="" data-target="#slider-4" data-slide-to="1"></li><li data-app-prevent-settings="" data-target="#slider-4" class="" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner" role="listbox">
+                        <div class="mbr-box mbr-section mbr-section--bg-adapted item dark center active">
+                            <div class="mbr-box__magnet">
+                                <div>
+                                    <img src="{!! asset('assets/images/slide2.jpg') !!}">
+                                    <div class="row"><div class="col-sm-8 col-sm-offset-2">
+                                            <div class="mbr-hero">
+                                                <h1 class="mbr-hero__text">Training</h1>
+                                                <p class="mbr-hero__subtext">Bard facilitates training for 3rd party organizations, contact us.</p>
+                                            </div>
+                                            <div class="mbr-buttons mbr-buttons--center"><a class="mbr-buttons__btn btn btn-lg btn-info" href="#">Contact Us</a></div>
+                                        </div></div>
+                                </div>
                             </div>
-                        </div>
-                    </div><div class="mbr-box mbr-section mbr-section--bg-adapted item dark center">
-                        <div class="mbr-box__magnet">
-                            <div>
-                                <img src="{!! asset('assets/images/slide1.jpg') !!}">
-                                <div class="row"><div class="col-sm-8 col-sm-offset-2">
-                                        <div class="mbr-hero">
-                                            <h1 class="mbr-hero__text">Facilities</h1>
-                                            <p class="mbr-hero__subtext">Cafeteria, Venues and More..</p>
-                                        </div>
-                                        <div class="mbr-buttons  mbr-buttons--center"><a class="mbr-buttons__btn btn btn-lg btn-info" href="#">Book A Venue</a> <a class="mbr-buttons__btn btn btn-lg btn-default" href="">Use Cafeteria</a></div>
-                                    </div></div>
+                        </div><div class="mbr-box mbr-section mbr-section--bg-adapted item dark center">
+                            <div class="mbr-box__magnet">
+                                <div>
+                                    <img src="{!! asset('assets/images/slide1.jpg') !!}">
+                                    <div class="row"><div class="col-sm-8 col-sm-offset-2">
+                                            <div class="mbr-hero">
+                                                <h1 class="mbr-hero__text">Facilities</h1>
+                                                <p class="mbr-hero__subtext">Cafeteria, Venues and More..</p>
+                                            </div>
+                                            <div class="mbr-buttons mbr-buttons--center"><a class="btn btn-lg btn-info" href="#">Book A Venue</a></div>
+                                        </div></div>
+                                </div>
                             </div>
-                        </div>
-                    </div><div class="mbr-box mbr-section mbr-section--bg-adapted item dark center">
-                        <div class="mbr-box__magnet">
-                            <div>
-                                <img src="{!! asset('assets/images/slide3.jpg') !!}">
-                                <div class="row"><div class="col-sm-8 col-sm-offset-2">
-                                        <div class="mbr-hero">
-                                            <h1 class="mbr-hero__text">Research</h1>
-                                            <p class="mbr-hero__subtext">With over 17 disiplines bard has various experts working on latest research trends. Come and join us.</p>
-                                        </div>
-                                        <div class="mbr-buttons mbr-buttons--center"><a class="btn btn-lg btn-info" href="#">Apply for Fellowship</a></div>
-                                    </div></div>
+                        </div><div class="mbr-box mbr-section mbr-section--bg-adapted item dark center">
+                            <div class="mbr-box__magnet">
+                                <div>
+                                    <img src="{!! asset('assets/images/slide3.jpg') !!}">
+                                    <div class="row"><div class="col-sm-8 col-sm-offset-2">
+                                            <div class="mbr-hero">
+                                                <h1 class="mbr-hero__text">Research</h1>
+                                                <p class="mbr-hero__subtext">With over 17 disiplines bard has various experts working on latest research trends. Come and join us.</p>
+                                            </div>
+                                            <div class="mbr-buttons mbr-buttons--center"><a class="btn btn-lg btn-info" href="#">Apply for Fellowship</a></div>
+                                        </div></div>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <a data-app-prevent-settings="" class="left carousel-control" role="button" data-slide="prev" href="#slider-4">
+                        <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a data-app-prevent-settings="" class="right carousel-control" role="button" data-slide="next" href="#slider-4">
+                        <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
                 </div>
+            @else
+                <div>
+                    <ol class="carousel-indicators">
+                        @for($i = 0; $i < $all_slider->count(); $i++)
+                            <li data-app-prevent-settings="" data-target="#slider-4" data-slide-to="{{ $i }}" class="@if($i == 0)active @endif"></li>
+                        @endfor
+                    </ol>
+                    <div class="carousel-inner" role="listbox">
+
+                        @foreach($all_slider as $slider)
+                            <div class="mbr-box mbr-section mbr-section--bg-adapted item dark center @if($slider->position == 1)active @endif">
+                                <div class="mbr-box__magnet">
+                                    <div>
+                                        <img src="{!! asset('uploads/'.$slider->slider_image) !!}">
+                                        <div class="row"><div class="col-sm-8 col-sm-offset-2">
+                                                <div class="mbr-hero">
+                                                    <h1 class="mbr-hero__text">{{ $slider->heading_text }}</h1>
+                                                    <p class="mbr-hero__subtext">{{ $slider->paragraph_text }}</p>
+                                                </div>
+                                                <div class="mbr-buttons mbr-buttons--center"><a class="mbr-buttons__btn btn btn-lg btn-info" href="{{ $slider->button_url }}">{{ $slider->button_text }}</a></div>
+                                            </div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+
+
+                </div>
+            @endif
 
                 <a data-app-prevent-settings="" class="left carousel-control" role="button" data-slide="prev" href="#slider-4">
                     <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
@@ -82,7 +128,7 @@
                                     @endforeach
                                 @endif
                             </div>
-                            <p class="group"><a href="" class="btn btn-default">LEARN MORE</a></p>
+                            <p class="group"><a href="{{ URL::to('/public_announcements') }}" class="btn btn-default">LEARN MORE</a></p>
                         </div>
                     </div>
                 </div>
@@ -92,17 +138,15 @@
                         <div class="caption">
                             <div>
                                 <h3>Up Coming Events</h3>
-                                @if ($trainings->isEmpty())
-                                    <h4>No Events </h4>
+                                @if ($upcomingTrainings->isEmpty())
+                                    <h4 align="center">No up coming events.</h4>
                                 @else
-                                    @foreach($trainings as $training)
-                                        @if(date('Y-m-d')<$training->start_date)
-                                            <h5><a href="{!! action('TrainingsController@publicShow', $training->id) !!}">{!! $training->training_name !!}</a></h5>
-                                        @endif
+                                    @foreach($upcomingTrainings as $training)
+                                        <h5><a href="{!! action('TrainingsController@publicShow', $training->id) !!}">{!! $training->training_name !!}</a></h5>
                                     @endforeach
                                 @endif
                             </div>
-                            <p class="group"><a href="#" class="btn btn-default">LEARN MORE</a></p>
+                            <p class="group"><a href="{{ URL::to('/public_trainings') }}" class="btn btn-default">LEARN MORE</a></p>
                         </div>
                     </div>
                 </div>
@@ -111,10 +155,16 @@
 
                         <div class="caption">
                             <div>
-                                <h3>Trainings<br></h3>
-                                <p>Google has a highly exhaustive list of fonts compiled into its web font platform and Mobirise makes it easy for you to use them on your website easily and freely.</p>
+                                <h3>On Going Trainings<br></h3>
+                                @if ($ongoingTrainings->isEmpty())
+                                    <h4> NO On Going Trainings.</h4>
+                                @else
+                                    @foreach($ongoingTrainings as $training)
+                                        <h5><a href="{!! action('TrainingsController@publicShow', $training->id) !!}">{!! $training->training_name !!}</a></h5>
+                                    @endforeach
+                                @endif
                             </div>
-                            <p class="group"><a href="#" class="btn btn-default">LEARN MORE</a></p>
+                            <p class="group"><a href="{{ URL::to('/public_trainings') }}" class="btn btn-default">LEARN MORE</a></p>
                         </div>
                     </div>
                 </div>

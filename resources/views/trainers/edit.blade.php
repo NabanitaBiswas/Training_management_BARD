@@ -1,4 +1,4 @@
-@extends('master/master')
+@extends('master_trainer/master')
 @section('title', 'Trainers')
 @section('content')
     <section class="content-2 col-12" style="background-color: rgb(255, 255, 255);">
@@ -6,7 +6,7 @@
         <div class="container">
             <div class="row">
                 <div class="well">
-                    <form class="form-horizontal" method="post">
+                    <form class="form-horizontal" method="post" enctype="multipart/form-data">
                         @if(session('status'))
                             <p class="alert alert-success">{{ session('status') }}</p>
                         @endif
@@ -24,6 +24,7 @@
                             <input type="text" class="form-control" id="title" name="name" value="{!! $trainer->name !!}">
                             
                         </div>
+                    </div>
                     <div class="form-group">
                         <label for="title" class="col-lg-2 control-label">Gender</label>
                         <div class="col-lg-10">                            
@@ -91,14 +92,18 @@
                             
                         </div>
                     </div>
-
+                         <div class="form-group">
+                          <label for="image"  class="col-lg-2 control-label">Change image</label>
+                           <div class="col-lg-5">
+                          <input name="image" type="file" id="Image" name='image'>
+                        </div>
 
 
                    
 
                     <div class="form-group">
                         <div class="col-lg-10 col-lg-offset-2">
-                            <button type="submit"class="btn btn-info">Cancel</button>
+                            <button type="reset" class="btn btn-info">Cancel</button>
                             <button type="submit" class="btn btn-success">Update</button>
                         </div>
                     </div>

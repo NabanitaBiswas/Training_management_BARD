@@ -2,23 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FeedbackFormRequest;
 use App\Trainer;
 use App\Feedback;
+use Auth;
 class FeedbacksController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('trainee');
+
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $feedbackInfos = Feedback::all();
-        return view('trainee.feedbacks.index', compact('feedbackInfos'));
+    {      
+        $feedbacks = Feedback::with('trainer')->distinct()->select('trainer_id')->get();
+        $trainers = Trainer::all();
+     
+        return view('feedbacks.index', compact('feedbacks','trainers'));
+        
     }
 
     /**
@@ -29,7 +39,7 @@ class FeedbacksController extends Controller
     public function create()
     {
         $trainers = Trainer::all();
-        return view('trainee.feedbacks.create',compact('trainers'));
+        return view('feedbacks.create',compact('trainers'));
     }
 
     /**
@@ -39,9 +49,11 @@ class FeedbacksController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(FeedbackFormRequest $request)
-    {
-       $feedback = new Feedback(array(
+    {   
+          $traineeId = Auth::user()->id;
+          $feedback = new Feedback(array(
            'trainer_id' => $request->get('trainer_id'),
+           'trainee_id' => $traineeId,
            'voice_range' => $request->get('A1'),
            'voice_clearity' => $request->get('A2'),
            'communication_skills' => $request->get('A3'),
@@ -52,10 +64,13 @@ class FeedbacksController extends Controller
            'speakers_knowledge' => $request->get('B3'),
            'comments' => $request->get('comments'),
         ));
-        
-        $feedback->save();
-        
-        return redirect('/trainee/feedbacks/feedbackIndex')->with('status', 'Your information has been created!');
+        if (Feedback::where('trainee_id', '=', $traineeId)->where('trainer_id', '=',$request->get('trainer_id'))->exists()) {
+           return redirect('/trainee')->with('status', 'You have already given feedback');
+        }
+        else{
+            $feedback->save();
+            return redirect('/trainee')->with('status', 'Your feedback has been submitted!');
+        }
     }
 
     /**
@@ -66,8 +81,25 @@ class FeedbacksController extends Controller
      */
     public function show($id)
     {
-        $feedbackInfo = Feedback::whereTrainerId($id)->firstOrFail();
-        return view('trainee.feedbacks.show', compact('feedbackInfo'));
+        $feedbacks = Feedback::where('trainer_id', '=', $id)
+                 ->with('trainer')
+                ->join('trainers', 'trainers.id', '=', 'feedbacks.trainer_id')
+                ->select('*',DB::raw('AVG(voice_range) as voice_range,
+                            AVG(voice_clearity) as voice_clearity,
+                            AVG(communication_skills) as communication_skills,
+                            AVG(rapport_building) as rapport_building,
+                            AVG(topic_usefulness) as topic_usefulness,
+                            AVG(interaction) as interaction,
+                            AVG(material_organization) as material_organization,
+                            AVG(speakers_knowledge) as speakers_knowledge'))
+                ->get();
+      
+        foreach($feedbacks as $f){
+                $sum= $f->voice_range+$f->voice_clearity+$f->communication_skills+$f->rapport_building+$f->topic_usefulness+$f->interaction+$f->material_organization+$f->speakers_knowledge;
+    }
+        $avg = $sum/8;
+       
+        return view('feedbacks.show', compact('feedbacks', 'avg'));
     }
 
     /**

@@ -28,6 +28,7 @@ class TrainingInfo extends Migration
             $table->text('fees_structure');
             $table->text('responsible_person');
             $table->tinyInteger('status')->default(1);
+            $table->string("image_path");
             $table->timestamps();
         });
     }

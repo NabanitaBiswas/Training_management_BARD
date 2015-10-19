@@ -1,0 +1,62 @@
+<?php $__env->startSection('content'); ?>
+        <div class="container col-md-8 col-md-offset-2">
+                <div class="well well bs-component">
+               <?php foreach($errors->all() as $error): ?>
+                    <p class="alert alert-danger"><?php echo e($error); ?></p>
+               <?php endforeach; ?>
+               <?php if(session('status')): ?>
+                    <div class="alert alert-success">
+                          <?php echo e(session('status')); ?>
+
+                    </div>
+               <?php endif; ?>
+               <h2 style="text-align: center">TRAINER COURSE LIST</h2>
+               <table class="table">
+                    <thead>
+                           <tr>
+                                <td>ID</td>
+                                <td>Trainer</td>
+                                <td>Course</td>
+                                <td>Edit</td>
+                                <td>Delete</td>
+                           </tr>
+                    </thead>
+                    <tbody>
+                            <?php foreach($trainers as $trainer): ?>
+                                <tr>
+                                    <td><?php echo e($trainer->id); ?></td>
+<?php /*                                    <td><?php echo e($trainer->trainer_id); ?></td>*/ ?>
+                                    <td>
+                                        <?php foreach($trainersList as $id=>$trainerFromList): ?>
+                                            <?php if($id==$trainer->trainer_id): ?>
+                                                <?php echo e($trainerFromList); ?>
+
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    </td>
+<?php /*                                    <td><?php echo e($trainer->course_id); ?></td>*/ ?>
+                                    <td>
+                                        <?php foreach($courses as $id=>$course): ?>
+                                            <?php if($id==$trainer->course_id): ?>
+                                                <?php echo e($course); ?>
+
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    </td>
+                                    <td><a href="/trainer_course/<?php echo e($trainer->id); ?>/edit" class="btn btn-success">Edit</a></td>
+                                    <td>
+                                        <?php echo Form::open(array('class'=>'form-inline','method'=>'Delete','route'=>['trainer_course.destroy',$trainer->id])); ?>
+
+                                        <?php echo Form::submit('Delete',['class'=>'btn btn-danger']); ?>
+
+                                        <?php echo Form::close(); ?>
+
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                    </tbody>
+               </table>
+               </div>
+        </div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin/layouts/master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

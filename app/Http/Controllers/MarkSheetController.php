@@ -8,10 +8,15 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 
 class MarkSheetController extends Controller
 {
+    public function __construct()
+    {
+        //$this->middleware('trainer');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -55,7 +60,7 @@ class MarkSheetController extends Controller
 
 
     }
-    public function insertMarks($mark,$traineeId,$examId)
+    private function insertMarks($mark,$traineeId,$examId)
     {
         $markIn=new Marksheet();
         $markIn->trainee_id=$traineeId;
@@ -120,7 +125,10 @@ class MarkSheetController extends Controller
     public function getTrainee($examId)
     {
         //dd($examId);
-        $trainees=User::all();
+        $trainees = DB::table('users')
+            ->join('role_user','users.id','=','role_user.user_id')
+            ->where('role_user.role_id',3)->get();
+        //$trainees=User::all();
         return view('marksheet/create',compact('trainees','examId'));
     }
 

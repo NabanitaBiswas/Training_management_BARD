@@ -1,0 +1,75 @@
+<?php $__env->startSection('title', 'BARDTrainer'); ?>
+<?php $__env->startSection('content'); ?>
+  <section class="content-2" style="background-color: rgb(255, 255, 255);">
+  	<style>
+		hr { 
+			display: block;
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+			margin-left: auto;
+			margin-right: auto;
+			border-style: inset;
+			border-width: 1px;
+			background-color:#009688;
+		} 
+	</style>
+    <div class="container">
+        <div class="row">
+          
+            <div class="col-md-10 col-lg-offset-1">
+				<div class="well">
+					<div class="panel panel-info">
+						<div class="">
+							<?php foreach($errors->all() as $error): ?>
+							<p class="alert alert-danger"><?php echo e($error); ?></p>
+							<?php endforeach; ?>
+							<?php if(session('status')): ?>
+							<div class="alert alert-success">
+								<?php echo e(session('status')); ?>
+
+							</div>
+							<?php endif; ?>
+							<?php if($bardtrainers->isEmpty()): ?>
+								<p> There is no data in database.</p>
+							<?php else: ?>
+							<?php foreach($bardtrainers as $bardtrainer): ?>
+							<h3 style="overflow:hidden" class="panel-title"><span class="pull-left"></span></h3>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class=" col-md-8 col-lg-8 "> 
+									<div class="col-md-5 col-lg-5 " align="center"> <img src="<?php echo e(asset($bardtrainer->filePath)); ?>" class="img-rounded img-responsive"> </div>
+									<div class=" col-md-3 col-lg-3">
+										<h4 style="color:#2196F3"><!--<a href="<?php echo action('BardTrainersController@show', $bardtrainer->slug); ?>">!--><?php echo $bardtrainer->name; ?> </a></h4>
+										   From: <?php echo $bardtrainer->country; ?><br>
+											  Email:<?php echo $bardtrainer->email; ?><br> 
+											  Phone Number:<?php echo $bardtrainer->cell_number; ?><br>
+											   Date of Birth: <?php echo $bardtrainer->date_of_birth; ?><br>
+											
+							
+									</div>
+								</div>
+								<div class=" col-md-4 col-lg-4 ">
+									<h4><b>Description  </b></h4>
+									Educational Qualification : <?php echo $bardtrainer->educational_qualification; ?><br>Skill Set : <?php echo $bardtrainer->skill_set; ?><br>Year of experience : <?php echo $bardtrainer->previous_experience; ?>
+
+								</div>
+								<a href="<?php echo action('BardTrainersController@edit', $bardtrainer->slug); ?>" class="btn btn-info">Edit</a>
+								<a href="<?php echo action('BardTrainersController@destroy', $bardtrainer->slug); ?>" class="btn btn-danger">Delete</a>
+							</div>
+							<hr>
+						<?php endforeach; ?>
+								
+						</div>
+						<?php endif; ?>           
+					</div>               
+				</div>
+			</div>
+			
+        </div>
+    </div>
+</section>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

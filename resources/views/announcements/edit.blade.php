@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 @section('title', 'Announcement')
 @section('content')
-    <div class="container col-md-8 col-md-offset-2">
+    <div class="container col-md-10 col-md-offset-2">
         <div class="well well bs-component">
             <form class="form-horizontal" method="post" id="announcementform">
                 @foreach ($errors->all() as $error)

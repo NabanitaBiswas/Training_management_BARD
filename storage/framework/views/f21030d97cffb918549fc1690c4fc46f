@@ -1,0 +1,47 @@
+<?php $__env->startSection('title', 'View all trainings'); ?>
+<?php $__env->startSection('content'); ?>
+
+    <div class="container col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2> Trainings </h2>
+            </div>
+            <?php if(session('status')): ?>
+                <div class="alert alert-success">
+                    <?php echo e(session('status')); ?>
+
+                </div>
+            <?php endif; ?>
+            <?php if($trainings->isEmpty()): ?>
+                <p> There is no available trainings.</p>
+            <?php else: ?>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Training Name</th>
+                        <th>Training Type</th>
+                        <th>Starting Date</th>
+                        <th>Ending Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach($trainings as $training): ?>
+                        <tr>
+
+                            <td>
+                                <a href="<?php echo action('TrainingsController@show', $training->training_slug); ?>"><?php echo $training->training_name; ?> </a>
+                            </td>
+                            <td><?php echo $training->training_type; ?></td>
+                            <td><?php echo $training->start_date; ?></td>
+                            <td><?php echo $training->end_date; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php endif; ?>
+        </div>
+    </div>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('trainings.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -15,6 +15,10 @@
     <link rel="stylesheet" href="{!! asset('assets/mobirise/css/mbr-additional.css') !!}" type="text/css">
     <link href="{!! asset('/assets/material_design/css/material.min.css') !!}" rel="stylesheet">
     <link href="{!! asset('/assets/material_design/css/ripples.min.css') !!}" rel="stylesheet">
+	<link rel="stylesheet" href="{!! asset('assets/course-style/style.css') !!}">
+    <style>
+        @yield('style')
+    </style>
 
 </head>
 <body>

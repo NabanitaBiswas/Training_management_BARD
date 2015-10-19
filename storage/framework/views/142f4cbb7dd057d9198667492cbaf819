@@ -1,0 +1,24 @@
+<?php if (Auth::check() && Auth::user()->is('admin')): ?>
+   <?php echo redirect('/'); ?>
+
+<?php endif; ?>
+
+<?php if (Auth::check() && Auth::user()->is('trainer')): ?>
+<?php echo redirect('/'); ?>
+
+<?php endif; ?>
+
+<?php if (Auth::check() && Auth::user()->is('trainee')): ?>
+<?php echo redirect('/'); ?>
+
+<?php endif; ?>
+
+<?php if (Auth::check() && Auth::user()->is('monitor')): ?>
+<?php echo redirect('/'); ?>
+
+<?php endif; ?>
+
+<?php if (Auth::check() && Auth::user()->is('view_admin')): ?>
+<?php echo redirect('/'); ?>
+
+<?php endif; ?>

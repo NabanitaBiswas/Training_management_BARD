@@ -1,0 +1,27 @@
+<?php $__env->startSection('content'); ?><br>
+<div class="container col-md-8 col-md-offset-2">
+    <h1 style="text-align: center;">SCHEDULES OF BARD</h1>
+    <?php foreach($errors->all() as $error): ?>
+        <p class="alert alert-danger"><?php echo e($error); ?></p>
+    <?php endforeach; ?>
+    <?php if(session('status')): ?>
+        <div class="alert alert-success">
+            <?php echo e(session('status')); ?>
+
+        </div>
+    <?php endif; ?>
+    <?php foreach($calenders as $calender): ?>
+        <div class="well well bs-component">
+            <h2 style="text-align: center;"><?php echo e($calender->title); ?></h2>
+
+            <p><?php echo e($calender->description); ?></p>
+            <img src="<?php echo e($calender->img); ?>" class="thumb" alt="<?php echo e($calender->title); ?>"><br>
+            <a href="calendar/<?php echo e($calender->id); ?>/edit" class="btn btn-success" type="button">
+                <i class="fa fa-edit">Edit</i>
+            </a>
+        </div>
+
+    <?php endforeach; ?>
+</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin/layouts/master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

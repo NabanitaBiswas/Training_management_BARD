@@ -146,6 +146,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Collective\Html\HtmlServiceProvider::class,
+        //Bestmomo\Scafold\
 
         Illuminate\Foundation\Providers\ArtisanServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,

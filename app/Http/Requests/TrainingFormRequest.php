@@ -24,7 +24,7 @@ class TrainingFormRequest extends Request
     public function rules()
     {
         return [
-            'training_name' => 'required|min:3',
+            /*'training_name' => 'required|min:3',
             'training_type'=> 'required',
             'description'=>'required',
             'applying_information'=>'required|min:10',
@@ -35,7 +35,7 @@ class TrainingFormRequest extends Request
             'accommodation'=>'required',
             'daily_schedule'=>'required',
             'fees_structure'=>'required',
-            'responsible_person'=>'required',
+            'responsible_person'=>'required'*/
         ];
     }
 }

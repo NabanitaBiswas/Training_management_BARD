@@ -14,6 +14,8 @@ class CreateFeedbacksTable extends Migration
     {
         Schema::create('feedbacks', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('trainee_id')->unsigned();
+            $table->integer('trainer_id')->unsigned();
             $table->integer('voice_range');
             $table->integer('voice_clearity');
             $table->integer('communication_skills');
@@ -23,9 +25,9 @@ class CreateFeedbacksTable extends Migration
             $table->integer('material_organization');
             $table->integer('speakers_knowledge');
             $table->string('comments');
-            $table->integer('trainer_id')->unsigned();
             $table->timestamps();
             
+            $table->foreign('trainee_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('trainer_id')->references('id')->on('trainers')->onDelete('cascade');
             
         });

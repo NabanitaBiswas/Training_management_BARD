@@ -1,0 +1,48 @@
+<?php $__env->startSection('title', 'View a announcement'); ?>
+    <style>
+
+        hr{
+            background-color: purple;
+        }
+
+        div {
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        label{
+            color: #00695C;
+            font-size: larger;
+        }
+
+        b{
+            font-size: larger;
+        }
+
+    </style>
+    <script>
+        function check(){
+            return confirm("Are You Sure? You Want To Delete This Announcement's Information.");
+        }
+    </script>
+
+<?php $__env->startSection('content'); ?>
+    <div class="container col-md-10 col-md-offset-1">
+        <div class="well well bs-component">
+            <div class="content">
+
+                <div class="well well bs-component" style="background-color: #4DB6AC; color: white;">
+                    <b><?php echo $announcement->heading; ?></b></br><br>
+                    <b>Published On:&nbsp;<?php echo $announcement->created_at; ?></b>
+                </div>
+
+                <div class="well well bs-component">
+                    <label>Description</label><hr>
+                    <p><?php echo $announcement->content; ?></p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,9 +1,9 @@
-@extends('master/master')
+@extends('master_trainer/master')
 @section('title', 'Create a Trainer Profile')
 @section('content')
     <div class="container col-md-8 col-md-offset-2">
             <div class="well well bs-component">
-                <form class="form-horizontal"  method="post">
+                <form class="form-horizontal"  action="{!! action('TrainersController@store') !!}"method="post" enctype="multipart/form-data">
                  @foreach ($errors->all() as $error)
                 <p class="alert alert-danger">{{ $error }}</p>
                 @endforeach
@@ -25,15 +25,16 @@
                         
                             
                     <div class="form-group" >
-                        <label for="name" class="col-lg-2 control-label">Name*:</label>
-                        <div class="col-lg-5">
-                            <input type="text" class="form-control" id="name" placeholder="Name" name="name" required>
-                        </div>
+                        <label class="col-lg-2 control-label">Name*:</label>
+                        <label class="col-lg-5 control-label">{{ $trainer_name}}</label>
+                        <input type="hidden" class="form-control" placeholder="Name" name="name" value="{{ $trainer_name }}">
+                        <input type="hidden" class="form-control" placeholder="Name" name="trainer_id" value="{{ $trainer_id }}">
+                        
                     </div>
                     <div class="form-group">
                         <label class="col-lg-2 control-label">Gender*</label>
-                        <div class="col-lg-1">
-                            <input type="radio" class=""  name="gender" value="Male" >Male
+                        <div class="col-lg-4">
+                            <input type="radio" class=""  name="gender" value="Male" checked>Male
                             <input type="radio" class=""  name="gender" value="Female">Female
                         </div>
                         
@@ -45,6 +46,18 @@
                             <input type="text" class="form-control" id="eduQualification" placeholder="Educational Qualification" name="educational_qualification">
                         </div>
 					 </div>
+
+                    <div class="form-group">
+                        <label for="inputTrainingName" class="col-lg-2 control-label">Training Name:</label>
+                        <div class="col-lg-5">
+                            <select class="form-control" name="training_name">
+                                
+                                @foreach($courses as $course)
+                                    <option value="{{ $course->id }}">{{ $course->course_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div> 
 					 <div class="form-group">
                         <label for="skillSet" class="col-lg-2 control-label">	Skill Set</label>
                         <div class="col-lg-5">
@@ -74,10 +87,9 @@
                       </div>
 
 					  <div class="form-group">
-                        <label for="email" class="col-lg-2 control-label">Email*</label>
-                        <div class="col-lg-5">
-                            <input type="text" class="form-control" id="email" placeholder="Email" name="email" required>
-                        </div>
+                        <label class="col-lg-2 control-label">E-mail*:</label>
+                        <label class="col-lg-5 control-label">{{ $trainer_email}}</label>
+                        <input type="hidden" class="form-control" placeholder="Name" name="email" value="{{ $trainer_email }}">
                       </div>
 					  <div class="form-group">
                         <label for="country" class="col-lg-2 control-label">Country</label>
@@ -86,7 +98,11 @@
                         </div>
                       </div>
 
-                            
+                              <div class="form-group">
+                          <label for="image"  class="col-lg-2 control-label">Choose an image</label>
+                           <div class="col-lg-5">
+                          <input name="image" type="file" id="Image" name='image'>
+                        </div>
                     
 
                     <div class="form-group">

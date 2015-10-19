@@ -1,0 +1,24 @@
+<?php $__env->startSection('content'); ?>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <div class="container col-md-8 col-md-offset-2">
+        <?php if(session('status')): ?>
+            <div class="alert alert-success">
+                <?php echo e(session('status')); ?>
+
+            </div>
+        <?php endif; ?>
+        <h2 style="text-align: center">Select any Training</h2>
+        <?php foreach($courseId as $coursesId): ?>
+<?php /*            <?php echo e($coursesId->id); ?>*/ ?>
+            <?php foreach($courses as $key=>$course): ?>
+                <?php if($key==$coursesId->id): ?>
+<?php /*                                            <?php echo e($key); ?><?php echo e($course); ?>*/ ?>
+                    <a href="<?php echo e(url('/track/'.$coursesId->id.'/'.$TrainingId)); ?>" type="button" class="btn btn-success">
+                        <?php echo e($course); ?> <i class="fa fa-truck"></i>
+                    </a>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        <?php endforeach; ?>
+    </div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

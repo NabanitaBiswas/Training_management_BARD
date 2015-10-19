@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 @section('title', 'Announcement')
 @section('content')
-    <div class="container col-md-8 col-md-offset-2">
+    <div class="container col-md-10 col-md-offset-2">
         <div class="well well bs-component">
             <form class="form-horizontal" method="post" id="announcementform">
                 @foreach ($errors->all() as $error)
@@ -24,7 +24,7 @@
                     <div class="form-group">
                         <label for="content" class="col-lg-2 control-label"><font color="#009688" size="3">Content</font></label>
                         <div class="col-lg-10">
-                            <textarea class="form-control" rows="5" id="content" placeholder="Write content" name="content" value="{{ old('content')}}"></textarea>
+                            <textarea class="form-control" rows="5" id="content" placeholder="Write content" name="content" value="">{{ old('content')}}</textarea>
 
                         </div>
                     </div>

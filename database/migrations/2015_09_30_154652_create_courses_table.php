@@ -28,6 +28,7 @@ class CreateCoursesTable extends Migration
             $table->text('award');
             $table->text('address_for_correspondence');
             $table->integer('training_id')->unsigned();
+            $table->string('course_image');
 
             $table->timestamps();
         });

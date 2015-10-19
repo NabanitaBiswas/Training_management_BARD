@@ -27,7 +27,8 @@ class ClientsFormRequest extends Request
             'client_name' => 'required|min:3',
             'client_email' => 'required|min:5',
             'client_phone_number' => 'required|min:5',
-            'client_address' => 'required|min:5'
+            'client_address' => 'required|min:5',
+            'client_logo' => 'required'
         ];
     }
 }

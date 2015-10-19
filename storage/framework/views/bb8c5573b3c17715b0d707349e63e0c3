@@ -1,0 +1,234 @@
+<?php $__env->startSection('title', 'Training Information'); ?>
+<?php $__env->startSection('content'); ?>
+<div class="container" style="background-color: white; color: black; font-size:larger">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <form class="form-horizontal" method="post" role="form" enctype="multipart/form-data">
+                    <?php foreach($errors->all() as $error): ?>
+                        <p class="alert alert-danger"><?php echo e($error); ?></p>
+                    <?php endforeach; ?>
+                        <?php if(session('check')): ?>
+                            <div class="alert alert-danger">
+                                <?php echo e(session('check')); ?>
+
+                            </div>
+                        <?php endif; ?>
+                        <?php if(session('warning')): ?>
+                            <div class="alert alert-danger">
+                                <?php echo e(session('warning')); ?>
+
+                            </div>
+                        <?php endif; ?>
+                    <?php if(session('status')): ?>
+                        <div class="alert alert-success">
+                            <?php echo e(session('status')); ?>
+
+                        </div>
+                    <?php endif; ?>
+                    <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-10">
+                                <label for="inputName" class="control-label">Training Name</label>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="inputName" placeholder="" name="training_name" value="<?php echo $training->training_name; ?>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-10">
+                                <label for="inputName" class="control-label">Training Type</label>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for="inputList" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <select class="form-control" name="training_type">
+                                    <option value="<?php echo $training->training_type; ?>"><?php echo $training->training_type; ?></option>
+                                    <option value="<?php echo $training->training_type; ?>"><?php echo $training->training_type; ?></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-10">
+                                    <label for="inputName" class="control-label">Description</label>
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-10">
+                                    <textarea class="form-control" rows="5" name="description"><?php echo $training->description; ?></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-10">
+                                <label for="inputName" class="control-label">Information How to Apply</label>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-10">
+                                <textarea class="form-control" rows="5" name="applying_information"><?php echo $training->applying_information; ?></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-10">
+                                <label for="inputName" class="control-label">Objectives</label>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-10">
+                                <textarea class="form-control" rows="5" name="objectives"><?php echo $training->objectives; ?></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-5">
+                                    <label for="inputSdate" class="control-label">Start Date</label>
+                                    <input type="date" class="form-control" placeholder="" name="start_date" value="<?php echo $training->start_date; ?>">
+                                </div>
+                                <div class="col-md-5">
+                                    <label for="inputSdate" class="control-label">End Date</label>
+                                    <input type="date" class="form-control" placeholder="" name="end_date" value="<?php echo $training->end_date; ?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-10">
+                                <label for="inputName" class="control-label">Resources Provided by BARD to a Particular Training</label>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-10">
+                                <textarea class="form-control" rows="5" name="provided_resources"><?php echo $training->provided_resources; ?></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-10">
+                                <label for="inputName" class="control-label">Information about Accommodation</label>
+                                <br>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-10">
+                                <textarea class="form-control" rows="5" name="accommodation"><?php echo $training->accommodation; ?></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-10">
+                                <label for="inputName" class="control-label">Daily Schedule</label>
+                                <br>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-10">
+                                <textarea class="form-control" rows="5" name="daily_schedule"><?php echo $training->daily_schedule; ?></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-10">
+                                <label for="inputName" class="control-label">Fees Structure</label>
+                                <br>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-10">
+                                <textarea class="form-control" rows="5" name="fees_structure"><?php echo $training->fees_structure; ?></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-10">
+                                <label for="inputName" class="control-label">Responsible Person for Trainees</label>
+                                <br>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-10">
+                                <textarea class="form-control" rows="5" name="responsible_person"><?php echo $training->responsible_person; ?></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-10">
+                                    <label>Upload Image</label><br>
+                                    <input type="file" name="image_path" class="field" id="image_path">
+                                    <p class="help-block"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-10 col-lg-offset-2">
+                            <button class="btn btn-default">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</div>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

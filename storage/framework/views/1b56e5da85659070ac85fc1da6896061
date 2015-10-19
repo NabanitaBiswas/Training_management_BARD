@@ -1,0 +1,34 @@
+<?php $__env->startSection('title', 'Testimonial'); ?>
+
+<?php $__env->startSection('content'); ?>
+    <div class="container col-md-8 col-md-offset-2">
+        <div class="well well bs-component">
+            <?php foreach($errors->all() as $error): ?>
+                <p class="alert alert-danger"><?php echo e($error); ?></p>
+            <?php endforeach; ?>
+            <?php if(session('status')): ?>
+                <div class="alert alert-success">
+                    <?php echo e(session('status')); ?>
+
+                </div>
+            <?php endif; ?>
+            <?php if($testimonials->isEmpty()): ?>
+                <label>No Testimonial</label><br><hr>
+                <?php else: ?>
+                    <?php foreach($testimonials as $testimonial): ?>
+                        <p><?php echo $testimonial->testimonial; ?></p><br>
+                        <i>Written by &nbsp;&nbsp;<?php echo $testimonial->author_name; ?></i>
+                        <form method="post" action="<?php echo action('TestimonialController@destroy', $testimonial->id); ?>" class="pull-right">
+                            <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                            <div class="form-group">
+                                <div>
+                                    <button type="submit" class="btn btn-warning" >Delete</button>
+                                </div>
+                            </div>
+                        </form>
+                    <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

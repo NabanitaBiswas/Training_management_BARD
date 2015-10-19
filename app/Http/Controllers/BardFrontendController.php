@@ -2,23 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Slider;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Announcement;
 use App\Training;
+use Carbon;
+use DateTime;
 
 class BardFrontendController extends Controller
 {
     public function index()
-    {   $limit=3;
+    {   $limit=2;
         $announcement = Announcement::orderBy('created_at','desc')->limit($limit)->get();
-        $trainings = Training::orderBy('start_date','asc')->get();
-        return view('bard_frontend.index', compact('announcement'),compact('trainings'));
+        $now = new Datetime();
+        $now=$now->format('Y-m-d');
+        $upcomingTrainings=Training::where('status','=',1)
+            ->where('start_date','>',Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$now.' 00:00:00'))
+            ->orderBy('start_date','asc')
+            ->limit($limit)
+            ->get();
+        $ongoingTrainings=Training::where('status','=',1)
+            ->where('start_date','<=',Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$now.' 00:00:00'))
+            ->where('end_date','>=',Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$now.' 00:00:00'))
+            ->limit($limit)
+            ->get();
+        $all_slider = Slider::orderBy('position', 'asc')->get();
 
-        //return view('bard_frontend/index')->with('index', 'active');
-
-
+        return view('bard_frontend.index', compact('announcement','upcomingTrainings','ongoingTrainings','all_slider'));
     }
     public function trainings()
     {

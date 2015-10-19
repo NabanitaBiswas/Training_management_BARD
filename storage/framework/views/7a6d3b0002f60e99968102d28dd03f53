@@ -1,0 +1,47 @@
+<?php $__env->startSection('title', 'Trainers'); ?>
+<?php $__env->startSection('content'); ?>
+    
+    <div class="container col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2> Trainers Information </h2>
+                    </div>
+                    <?php foreach($errors->all() as $error): ?>
+                    <p class="alert alert-danger"><?php echo e($error); ?></p>
+                     <?php endforeach; ?>
+                     <?php if(session('status')): ?>
+                        <div class="alert alert-success">
+                            <?php echo e(session('status')); ?>
+
+                        </div>
+                    <?php endif; ?>
+                    <?php if($trainers->isEmpty()): ?>
+                        <p> There is no data in database.</p>
+                    <?php else: ?>
+                        <table class="table" >
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>                                    
+                                    <th>Country</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach($trainers as $trainer): ?>
+                                    <tr>
+                                        <td> <?php echo $trainer->id; ?>  </td>
+                                       <td> <a href="<?php echo action('TrainersController@show', $trainer->slug); ?>"><?php echo $trainer->name; ?> </a></td>
+                                        
+                                        <td><?php echo $trainer->country; ?></td>
+                                        
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php endif; ?>
+                </div>
+        </div>
+<?php $__env->stopSection(); ?> 
+
+<?php echo $__env->make('master/master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

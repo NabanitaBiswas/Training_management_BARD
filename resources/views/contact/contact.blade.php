@@ -41,6 +41,9 @@
             <div class="well well bs-component">
                 <br><br>
                 <form class="form-horizontal" method="post">
+                    @if(session('status'))
+                        <p class="alert alert-success">{{ session('status') }}</p>
+                    @endif
                     <input type="hidden" name="_token" value="{!! csrf_token() !!}">
                     <fieldset>
         
@@ -78,7 +81,7 @@
                         </div>
                         <div class="form-group">
                             <label for="content" class="col-lg-2 control-label">BARD</label>
-                            <div class="col-lg-10" id="googleMap" style="width:740px;height:600px;"></div>
+                            <div class="col-lg-10" id="googleMap" style="width:100%;height:600px;"></div>
                         </div>
                     </fieldset>
                 </form>

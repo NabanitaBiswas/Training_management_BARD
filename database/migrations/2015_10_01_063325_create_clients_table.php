@@ -18,6 +18,7 @@ class CreateClientsTable extends Migration
             $table->string('client_email');
             $table->string('client_phone_number');
             $table->text('client_address');
+            $table->string('client_logo');
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@
     <section class="content-2" style="background-color: rgb(255, 255, 255);">
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-9">
                     @if($clients->isEmpty())
                         <p>There is no Clients</p>
                     @else

@@ -1,0 +1,92 @@
+<?php $__env->startSection('title', '`Trainings'); ?>
+    <style>
+        hr{
+            background-color: #FFCC80;
+        }
+    </style>
+<?php $__env->startSection('content'); ?>
+
+    <div class="container">
+
+        <div class="panel panel-default">
+            <div class="panel-heading" style="background-color: whitesmoke; color: black;">
+                <h2 align="center">Trainings</h2>
+            </div>
+
+            <?php if($trainings->isEmpty()): ?>
+                <b>No Training Available.</b>
+            <?php else: ?>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <h2 align="center"><font color="black">Ongoing Training</font></h2><hr>
+
+                        <?php if($ongoingTrainings->isEmpty()): ?>
+                            <b>No Available Ongoing Trainings.</b>
+                        <?php else: ?>
+                            <?php foreach($ongoingTrainings as $training): ?>
+                                <div class="col-md-4">
+                                    <div class="course_gellary">
+                                        <div class="course_image">
+                                            <img src="<?php echo $training->image_path; ?>" alt="No Training Image">
+                                        </div>
+                                        <div class="course_title">
+                                            <a href="<?php echo action('TrainingsController@publicShow', $training->id); ?>"><?php echo $training->training_name; ?> </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <h2 align="center"><font color="black">Upcoming Training</font></h2><hr>
+                        <?php if($upcomingTrainings->isEmpty()): ?>
+                            <b>No Available Upgoing Trainings.</b>
+                        <?php else: ?>
+                            <?php foreach($upcomingTrainings as $training): ?>
+                                <div class="col-md-4">
+                                    <div class="course_gellary">
+                                        <div class="course_image">
+                                            <img src="<?php echo $training->image_path; ?>" alt="Course Image">
+                                        </div>
+                                        <div class="course_title">
+                                            <a href="<?php echo action('TrainingsController@publicShow', $training->id); ?>"><?php echo $training->training_name; ?> </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <h2 align="center"><font color="black">Past Training</font></h2><hr>
+                        <?php if($pastTrainings->isEmpty()): ?>
+                            <b>No Available Past Trainings.</b>
+                        <?php else: ?>
+                            <?php foreach($pastTrainings as $training): ?>
+                                <div class="col-md-4">
+                                    <div class="course_gellary">
+                                        <div class="course_image">
+                                            <img src="<?php echo $training->image_path; ?>" alt="Course Image">
+                                        </div>
+                                        <div class="course_title">
+                                            <a href="<?php echo action('TrainingsController@publicShow', $training->id); ?>"><?php echo $training->training_name; ?> </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

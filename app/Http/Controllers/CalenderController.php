@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Validator;
 
 class CalenderController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('admin', ['except' => 'index']);
+    }
     /**
      * Display a listing of the resource.
      *

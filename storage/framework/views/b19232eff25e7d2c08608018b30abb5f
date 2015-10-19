@@ -1,0 +1,32 @@
+<?php $__env->startSection('title', 'View all courses'); ?>
+<?php $__env->startSection('content'); ?>
+
+    <div class="container">
+
+        <h2> Courses </h2>
+
+        <?php if($courses->isEmpty()): ?>
+            <p> There is no course available.</p>
+        <?php else: ?>
+            <div class="row">
+                <?php foreach($courses as $course): ?>
+
+                    <div class="col-md-4">
+                        <div class="course_gellary">
+                            <div class="course_image">
+                                <img src="<?php echo $course->course_image; ?>" alt="Course Image">
+                            </div>
+                            <div class="course_title">
+                                <a href="<?php echo action('CoursePublicController@show', $course->id); ?>"><?php echo $course->course_name; ?> </a>
+                            </div>
+                        </div>
+                    </div>
+
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+
+    </div>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,147 @@
+<?php $__env->startSection('title', 'View Information'); ?>
+    <style>
+        label{
+            color: green;
+            font-size: larger;
+        }
+
+        b{
+            font-family: Arial;
+            font-size: larger;
+        }
+
+        hr{
+            background-color: purple;
+        }
+    </style>
+<?php $__env->startSection('content'); ?>
+    <div class="container">
+        <div class="well well bs-component">
+            <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--12-col">
+                    <div class="well" style="background-color: darkseagreen;font-size: larger">
+                        <header align="center">
+                            <b>Bangladesh Academy For Rural Development(BARD)</b><br>
+                            <b>Kotbari,Comilla,Bangladesh</b><br>
+                            <b><?php echo $training->training_name; ?></b>
+                        </header>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--6-col">
+                    <div class="well well bs-component">
+                        <div>
+                            <label>Training Type</label>
+                            <p><?php echo $training->training_type; ?></p>
+                        </div><hr>
+
+                        <div>
+                            <label>List of Courses</label>
+                            <br>
+                            <?php if($courses->isEmpty()): ?>
+                                <p> There is no available courses.</p>
+                            <?php else: ?>
+                                <?php foreach($courses as $course): ?>
+                                    <b><a href="<?php echo action('CourseController@show', $course->id); ?>"><?php echo $course->course_name; ?></a></b><br>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+
+                        </div><hr>
+
+                        <div>
+                            <label>Duration:</label>&nbsp;<?php echo $training->start_date; ?>&nbsp;to&nbsp;<?php echo $training->end_date; ?>
+
+
+                        </div><hr>
+
+                        <div>
+                            <label>Information How to Apply</label>
+                            <p>
+                                <?php echo $training->applying_information; ?>
+
+                            </p>
+                        </div><hr>
+
+
+                        <div>
+                            <label>Resources Provided by to a Particular Training</label>
+                            <p>
+                                <?php echo $training->provided_resources; ?>
+
+                            </p>
+                        </div><hr>
+
+                        <div>
+                            <label>Information About Accommodation</label>
+                            <p>
+                                <?php echo $training->accommodation; ?>
+
+                            </p>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="mdl-cell mdl-cell--6-col">
+                    <div class="well well bs-component">
+                        <div>
+                            <label>Description</label><br><hr>
+                            <p>
+                                <?php echo $training->description; ?>
+
+                            </p>
+                        </div><hr>
+
+                        <div>
+                            <label>Objectives</label>
+                            <p>
+                                <?php echo $training->objectives; ?>
+
+                            </p>
+                        </div><hr>
+                        <div>
+                            <?php if(!$testimonials->isEmpty()): ?>
+                                <label>Testimonial</label><br><hr>
+                                <?php foreach($testimonials as $testimonial): ?>
+                                    <p><?php echo $testimonial->testimonial; ?></p><br>
+                                    <i>Written by &nbsp;&nbsp;<?php echo $testimonial->author_name; ?></i>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </div>
+                        <hr>
+                        <div>
+                            <label>Daily Schedule</label>
+                            <p>
+                                <?php echo $training->daily_schedule; ?>
+
+                            </p>
+                        </div><hr>
+
+                        <div>
+                            <label>Fees Structure</label>
+                            <p>
+                                <?php echo $training->fees_structure; ?>
+
+                            </p>
+                        </div><hr>
+
+                        <div>
+                            <label>Responsible person for Trainees</label>
+                            <p>
+                                <?php echo $training->responsible_person; ?>
+
+                            </p>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('master/master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

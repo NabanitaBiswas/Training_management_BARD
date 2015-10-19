@@ -13,6 +13,19 @@ use App\Http\Requests\UserRoleRequest;
 
 class UsersController extends Controller
 {
+    public function __construct()
+    {
+//        $this->middleware('admin', ['except' => ['not_allowed', 'redirection_page']]);
+    }
+
+    public function redirection_page()
+    {
+        return view('auth/redirection_page');
+    }
+    public function not_allowed($role)
+    {
+        return view('auth/not_allowed')->with('role', $role);
+    }
     public function show_user_registration_form()
     {
         $roles = Role::all();
@@ -112,10 +125,4 @@ class UsersController extends Controller
         $role_user->save();
         return redirect('user/all')->with('status', 'User info update successfully');
     }
-
-
-
-
-
-
 }

@@ -1,0 +1,41 @@
+<?php $__env->startSection('title', 'View all Announcements'); ?>
+
+<?php $__env->startSection('content'); ?>
+
+    <div class="container col-md-10 col-md-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="background-color: #4DB6AC; color: white;">
+                <h2> Announcements </h2>
+            </div>
+            <?php if(session('status')): ?>
+                <div class="alert alert-success">
+                    <?php echo e(session('status')); ?>
+
+                </div>
+            <?php endif; ?>
+            <?php if($announcement->isEmpty()): ?>
+                <h2>No Announcements </h2>
+            <?php else: ?>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th><font size="3" color="black">Announcement Title</font></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach($announcement as $announcement): ?>
+                        <tr>
+                            <td>
+                                <a href="<?php echo action('AnnouncementController@publicShow', $announcement->id); ?>"><?php echo $announcement->heading; ?> &nbsp;&nbsp; Publish on <?php echo $announcement->created_at; ?> </a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php endif; ?>
+        </div>
+    </div>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('master.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

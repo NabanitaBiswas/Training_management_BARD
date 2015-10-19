@@ -1,0 +1,44 @@
+<?php $__env->startSection('content'); ?><br>
+    <div class="container col-md-8 col-md-offset-2">
+        <?php if(session('status')): ?>
+            <div class="alert alert-success">
+                <?php echo e(session('status')); ?>
+
+            </div>
+        <?php endif; ?>
+        <h2 style="text-align: center">Marksheet</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Trainee</th>
+                <th>Mark</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach($marksheets as $marksheet): ?>
+                <tr>
+                    <td><?php echo e($marksheet->id); ?></td>
+                    <td><?php echo e($marksheet->trainee); ?></td>
+                    <td><?php echo e($marksheet->mark); ?></td>
+                    <td><a href="/marksheet/<?php echo e($marksheet->id); ?>/edit" class="btn btn-primary">Edit</a></td>
+                    <td>
+                        <?php echo Form::open(array('class'=>'form-inline', 'method'=>'DELETE','route'=>array('marksheet.destroy',$marksheet->id))); ?>
+
+
+                        <?php echo Form::submit('Delete',array('class'=>'btn btn-danger')); ?>
+
+
+                        <?php echo Form::close(); ?>
+
+
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin/layouts/master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

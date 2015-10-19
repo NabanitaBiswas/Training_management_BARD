@@ -2,23 +2,31 @@
 
 namespace App\Http\Controllers;
 use App\Testimonial;
+use App\FAQ;
 use DateTime;
-use Carbon\Carbon;
+use Carbon;
 use App\Course;
 use App\Training;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\TrainingFormRequest;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 
 use App\Http\Controllers\Controller;
 
 class TrainingsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin', ['only' => ['training_info', 'index', 'store','show','edit','update','destroy','statusUpdate']]);//for selected multiple files
+        //$this->middleware('auth',['except'=>'index']);
+    }
 
     public function training_info()
     {
         return view('trainings.training_info');
+
     }
     /**
      * Display a listing of the resource.
@@ -28,25 +36,24 @@ class TrainingsController extends Controller
     public function publicIndex()
     {
         $trainings = Training::where('status',1)->get();
-        return view('trainings.public_training_pages.index', compact('trainings'));
+        $now = new Datetime();
+        $now=$now->format('Y-m-d');
+        $ongoingTrainings=Training::where('status','=',1)
+            ->where('start_date','<=',Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$now.' 00:00:00'))
+            ->where('end_date','>=',Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$now.' 00:00:00'))
+            ->get();
+        $upcomingTrainings=Training::where('status','=',1)
+            ->where('start_date','>',Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$now.' 00:00:00'))
+            ->get();
+        $pastTrainings=Training::where('status','=',1)
+            ->where('end_date','<',Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$now.' 00:00:00'))
+            ->get();
+        return view('trainings.public_training_pages.index', compact('trainings','ongoingTrainings','upcomingTrainings','pastTrainings'));
     }
     public function index()
     {
         $trainings = Training::all();
         return view('trainings.index', compact('trainings'));
-        //if($trainings->start_date<date('Y-m-d'))
-        //return $trainings->start_date;
-        //$trainings = Training::first();
-        //return view('trainings.index', compact('trainings'));
-        //$now = new Datetime();
-        //$now=$now->format('Y-m-d');
-        //return var_dump($now);
-        //$trainings=Training::where('start_date','<',$now);
-        //$trainings=Training::where('start_date','>',Carbon::parse('2015-10-02'));
-        //$trainings=Training::where('start_date','=',\DB::raw('2015-10-02'));
-        //$trainings=Training::wherestart_date(2015-10-05);
-        //return $trainings;
-        //return view('trainings.index', compact('trainings'));
     }
 
     /*
@@ -67,25 +74,69 @@ class TrainingsController extends Controller
      */
     public function store(TrainingFormRequest $request)
     {
+        $training_name = $request->get('training_name');
+        $start_date=$request->get('start_date');
+        $end_date=$request->get('end_date');
+        $check=Training::whereTraining_name($training_name)->count('id');
+        if($check){
+            return redirect('/training_info')->with("check",$training_name." Training Has Already Entered.");
+        }
+        else {
+            if($start_date>$end_date){
+                return redirect('/training_info')->with("checkDuration","Start Time Should Not Be Greater Than End Date.");
+            }
+            $ImageExtensions = array('jpg', 'png', 'jpeg','gif','tif','tiff','bmp');
+            $input = $request->all();
+            if (isset($input['image_path'])) {
+                $Image = $input['image_path'];
+                $ImageExtension = $request->file('image_path')->getClientOriginalExtension();
+                if (in_array($ImageExtension, $ImageExtensions)) {
+                    $Image = $this->imageUpload($Image);
+                    $input['image_path'] = $Image;
+                } else
+                    return redirect('/training_info')->with('warning', 'Only jpg, png, tif, tiff, bmp and jpeg Image Format Are Allowed.');
+            } else {
+                $input['image_path'] = "training_image/default.gif";
+            }
             $training = new Training(array(
-            'training_name' => $request->get('training_name'),
-            'training_type'=>$request->get('training_type'),
-            'description'=>$request->get('description'),
-            'applying_information'=>$request->get('applying_information'),
-            'objectives'=>$request->get('objectives'),
-            //'courses'=>$request->get('courses'),
-            'start_date'=>$request->get('start_date'),
-            'end_date'=>$request->get('end_date'),
-            'provided_resources'=>$request->get('provided_resources'),
-            'accommodation'=>$request->get('accommodation'),
-            //'testimonial'=>$request->get('testimonial').'<br> Author Name : '.$request->get('name'),
-            'daily_schedule'=>$request->get('daily_schedule'),
-            'fees_structure'=>$request->get('fees_structure'),
-            'responsible_person'=>$request->get('responsible_person'),
-        ));
+                'training_name' => $request->get('training_name'),
+                'training_type' => $request->get('training_type'),
+                'description' => $request->get('description'),
+                'applying_information' => $request->get('applying_information'),
+                'objectives' => $request->get('objectives'),
+                'start_date' => Carbon\Carbon::createFromFormat('Y-m-d',$request->get('start_date')),
+                'end_date' => Carbon\Carbon::createFromFormat('Y-m-d',$request->get('end_date')),
+                'provided_resources' => $request->get('provided_resources'),
+                'accommodation' => $request->get('accommodation'),
+                'daily_schedule' => $request->get('daily_schedule'),
+                'fees_structure' => $request->get('fees_structure'),
+                'responsible_person' => $request->get('responsible_person'),
+                'image_path' => $input['image_path']
+            ));
+            $training->save();
+            return redirect('/training_info')->with('status', 'Your Information Is Inserted Successfully.');
+        }
+    }
+    public function imageUpload($Image)
+    {
+        $rules=array('image'=>'image');
+        $validate=Validator::make(array("productImage"=>$Image),$rules);
+        $path="training_image";
+        if($validate)
+        {
+            $imageOriginalName=$Image->getClientOriginalName();//get image full name
+            $basename = substr($imageOriginalName, 0, strrpos($imageOriginalName, "."));//get image name without extension
+            $basename=str_replace(" ", "", $basename);
+            $extension =$Image->getClientOriginalExtension();//get image extension only
+            $imageName=$basename.date("YmdHis").'.'.$extension;//make new name
 
-        $training->save();
-        return redirect('/training_info')->with('status', 'Your information is inserted successfully.');
+            $imageMoved=$Image->move($path, $imageName);
+            if($imageMoved)
+            {
+                $imagePath=$path.'/'.$imageName;
+                return $imagePath;
+            }
+        }
     }
 
     /**
@@ -107,9 +158,9 @@ class TrainingsController extends Controller
         $training = Training::whereid($id)->firstOrFail();
         $courses=Course::wheretraining_id($id)->get();
         $testimonials=Testimonial::wheretraining_id($id)->get();
-        return view('trainings.public_training_pages.show', compact('training'),compact('courses'))->with('testimonials',$testimonials);
+        $FAQs=FAQ::wheretraining_id($id)->get();
+        return view('trainings.public_training_pages.show', compact('training','courses','FAQs'))->with('testimonials',$testimonials);
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -121,7 +172,6 @@ class TrainingsController extends Controller
         $training = Training::whereid($id)->firstOrFail();
         return view('trainings.edit', compact('training'));
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -131,35 +181,47 @@ class TrainingsController extends Controller
      */
     public function update($id, TrainingFormRequest $request)
     {
-        $training =  Training::where('id',$id)->firstOrFail();
-        $training->training_name = $request->get('training_name');
-        $training->training_type    = $request->get('training_type');
-        $training->description    = $request->get('description');
-        $training->applying_information=$request->get('applying_information');
-        $training->objectives=$request->get('objectives');
-        $training->start_date=$request->get('start_date');
-        $training->end_date=$request->get('end_date');
-        $training->provided_resources=$request->get('provided_resources');
-        $training->accommodation=$request->get('accommodation');
-        $training->daily_schedule=$request->get('daily_schedule');
-        $training->fees_structure=$request->get('fees_structure');
-        $training->responsible_person=$request->get('responsible_person');
-       // return $training->toArray();
-       // $training->save();Route::post('/training/{id?}','TrainingsController@active_status_update');
-        Training::where('id',$id)->update($training->toArray());
-        return redirect(action('TrainingsController@edit', $training->id))->with('status', 'Information  has been updated!');
+        $training = Training::whereid($id)->firstOrFail();
+        $ImageExtensions = array('jpg', 'png', 'jpeg','gif','tif','tiff','bmp');
+        $start_date=$request->get('start_date');
+        $end_date=$request->get('end_date');
+        $input = $request->all();
+        if (isset($input['image_path'])) {
+            $Image = $input['image_path'];
+            $ImageExtension = $request->file('image_path')->getClientOriginalExtension();
+            if (in_array($ImageExtension, $ImageExtensions)) {
+                $Image = $this->imageUpload($Image);
+                $input['image_path'] = $Image;
+            }
+            else
+                return redirect(action('TrainingsController@edit', $training->id))->with('warning', 'Only jpg, png, tif, tiff, bmp and jpeg Image Format Are Allowed.');
+        }
+        else{
+            $input['image_path'] = Training::where('id', '=', $id)->pluck('image_path');
+        }
+        $training_name=$request->get('training_name');
+        $check=Training::whereTraining_name($training_name)->count('id');
+        if(!$check){
+            $training->training_name = $training_name;
+        }
+        $training->training_type = $request->get('training_type');
+        $training->description = $request->get('description');
+        $training->applying_information = $request->get('applying_information');
+        $training->objectives = $request->get('objectives');
+        if($start_date<=$end_date){
+            $training->start_date = $request->get('start_date');
+            $training->end_date = $request->get('end_date');
+        }
+        $training->provided_resources = $request->get('provided_resources');
+        $training->accommodation = $request->get('accommodation');
+        $training->daily_schedule = $request->get('daily_schedule');
+        $training->fees_structure = $request->get('fees_structure');
+        $training->responsible_person = $request->get('responsible_person');
+        $training->image_path = $input['image_path'];
+        Training::where('id', $id)->update($training->toArray());
+        return redirect(action('TrainingsController@edit', $training->id))->with('status', 'Information  Has Been Updated!');
     }
-    /*public function active_status_update($id){
-        $training =  Training::where('id',$id)->firstOrFail();
-        $training->status =1;
-        $training->save();
-        return redirect('trainings.index')->with('status', 'status  has been updated!');
-    }
-    public function inactive_status_update($id){
-        $training =  Training::where('id',$id)->firstOrFail();
-        $training->status =0;
-        $training->save();
-    }*/
+
     public function statusUpdate($id){
         $training =  Training::where('id',$id)->firstOrFail();
         if($training->status){
@@ -172,9 +234,7 @@ class TrainingsController extends Controller
         $training->save();
         $trainings = Training::all();
         return view('trainings.index', compact('trainings'));
-        //return view('trainings.index')->with('status', 'status  has been updated!');
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -184,7 +244,8 @@ class TrainingsController extends Controller
     public function destroy($id)
     {
         $training = Training::whereid($id)->firstOrFail();
+        unlink($training->image_path);
         $training->delete();
-        return redirect('/trainings')->with('status', 'The training information has been deleted!');
+        return redirect('/trainings')->with('status', 'The Training Information Has Been Deleted!');
     }
 }

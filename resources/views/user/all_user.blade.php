@@ -3,7 +3,7 @@
     <section class="content-2 col-12" style="background-color: rgb(255, 255, 255);">
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-9">
                     <table class="table table-striped">
                         <thead>
                         <tr>

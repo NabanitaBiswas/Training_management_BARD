@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Marksheet extends Model
 {
     protected $table="marksheets";
-    protected $fillable=['trainee','mark'];
+    protected $fillable=['trainee','mark']; //mizan.merch@gmail.com
 }

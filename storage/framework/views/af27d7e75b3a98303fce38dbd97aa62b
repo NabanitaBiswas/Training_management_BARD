@@ -1,0 +1,28 @@
+<nav class="navbar navbar-default" style="background-color: #00BCD4">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="<?php echo e(URL::to('/')); ?>"><img src="<?php echo asset('assets/images/logo.jpg'); ?>" alt=""></a>
+        </div>
+
+        <!-- Navbar Right -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+
+                <li class="<?php if(isset($trainer)): ?>active <?php endif; ?>"><a href="<?php echo e(URL::to('/trainer')); ?>" class="">HOME</a></li>
+                <li class="<?php if(isset($addexam)): ?>active <?php endif; ?>"><a href="<?php echo e(URL::to('/exam/create')); ?>" class="">ADD EXAM</a></li>
+                <li class="<?php if(isset($marksheet)): ?>active <?php endif; ?>"><a href="<?php echo e(URL::to('/marksheet')); ?>" class="">MARKS</a> </li>
+                <li class="<?php if(isset($updatetrainee)): ?>active <?php endif; ?>"><a href="<?php echo e(URL::to('#')); ?>" class="">UPDATE TRAINEE</a></li>
+                <li class="<?php if(isset($traineeattendence)): ?>active <?php endif; ?>"><a href="<?php echo e(URL::to('#')); ?>" class="">TRAINEE ATTENDENCE</a> </li>
+                <li class="<?php if(isset($traineeattendence)): ?>active <?php endif; ?>"><a href="<?php echo e(URL::to('#')); ?>" class="">LOGOUT</a> </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>

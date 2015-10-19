@@ -1,0 +1,59 @@
+<?php $__env->startSection('title', 'Trainings'); ?>
+
+    <style>
+        td:hover{
+            background-color: #E6EE9C;
+        }
+    </style>
+    <script>
+        function check(){
+            return confirm("Are You Sure? You Want To Delete This Training's Information.");
+        }
+    </script>
+<?php $__env->startSection('content'); ?>
+    <div class="container col-md-10 col-md-offset-2">
+        <?php foreach($errors->all() as $error): ?>
+            <p class="alert alert-danger"><?php echo e($error); ?></p>
+        <?php endforeach; ?>
+            <?php if(session('status')): ?>
+                <div class="alert alert-success">
+                    <?php echo e(session('status')); ?>
+
+                </div>
+            <?php endif; ?>
+        <div class="panel panel-default">
+            <div class="panel-heading" style="background-color: #26A69A;">
+                <h2 align="center">Trainings</h2>
+            </div>
+            <?php if($trainings->isEmpty()): ?>
+                <p> There is no available trainings.</p>
+            <?php else: ?>
+                <table class="table table-hover">
+                    <thead>
+                    <tr style="color: darkseagreen">
+                        <td><h3>Training Name</h3></td>
+                        <td align=""><h3>Status</h3></td>
+                        <td align=""><h3>Update</h3></td>
+                        <td align=""><h3>Delete</h3></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach($trainings as $training): ?>
+                        <tr class="success">
+                            <td><a href="<?php echo action('TrainingsController@show', $training->id); ?>" style="font-size: larger;"><?php echo $training->training_name; ?></a></td>
+                            <td><a href="<?php echo action('TrainingsController@statusUpdate', $training->id); ?>" class="btn btn-info" style="background-color: <?php echo $training->status ? '#1DE9B6':'#E53935'; ?>"><?php echo $training->status ? "Active":"Inactive"; ?></a></td>
+                            <td><a href="<?php echo action('TrainingsController@edit', $training->id); ?>" class="btn btn-info pull-left">Edit</a></td>
+                            <td><a href="<?php echo action('TrainingsController@destroy', $training->id); ?>" class="btn btn-warning" onclick="return check()">Delete</a></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php endif; ?>
+            <div class="clearfix"></div>
+
+
+        </div>
+    </div>
+    </div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

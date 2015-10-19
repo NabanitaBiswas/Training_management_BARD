@@ -1,0 +1,61 @@
+<?php $__env->startSection('title', 'FAQs'); ?>
+<style>
+    label{
+        color: #009688;
+        font-size: larger;
+    }
+    hr{
+        background-color: #E6EE9C;
+    }
+</style>
+<script>
+    function check(){
+        return confirm("Are You Sure? You Want To Delete This Question.");
+    }
+</script>
+<?php $__env->startSection('content'); ?>
+    <div class="container col-md-10 col-md-offset-1">
+        <div class="well well bs-component">
+            <div class="well well bs-component" style="background-color: #43A047; color:white; font-size:larger" align="center"><h1>Frequently Asked Questions</br>(FAQs)</h1></div>
+                <div class="content">
+
+                        <?php if(session('status')): ?>
+                            <div class="alert alert-success">
+                                <?php echo e(session('status')); ?>
+
+                            </div>
+                        <?php endif; ?>
+                        <?php if($FAQs->isEmpty()): ?>
+                            <p>No Questions and Answer Retaled to this Training Name.</p>
+                        <?php else: ?>
+                            <?php foreach($FAQs as $FAQ): ?>
+                                <div>
+                                    <?php foreach($trainings as $training): ?>
+                                        <?php if($FAQ->training_id==$training->id): ?>
+                                            <h3 style="color:seagreen">Training Name :&nbsp; <?php echo $training->training_name; ?></h3>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                    <label>Question</label><hr>
+                                    <p><?php echo $FAQ->question; ?></p>
+                                    <label>Answer</label><hr>
+                                    <p><?php echo $FAQ->answer; ?></p>
+                                    <h6><i>Written By</i> &nbsp; &nbsp;<?php echo $FAQ->author_name; ?></h6>
+                                    <a href="<?php echo action('FAQsController@edit', $FAQ->id); ?>" class="btn btn-info pull-right">Edit</a>
+                                    <form method="post" action="<?php echo action('FAQsController@destroy', $FAQ->id); ?>" class="pull-right">
+                                        <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                                        <div class="form-group">
+                                            <div>
+                                                <button type="submit" class="btn btn-warning" onclick="return check()">Delete</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div><br><br><br><br><br>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                                    <div class="clearfix"></div>
+                </div>
+
+        </div>
+    </div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

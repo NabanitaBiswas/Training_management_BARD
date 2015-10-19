@@ -1,0 +1,19 @@
+<html>
+<head>
+    <link href="<?php echo asset('css/bootstrap.css'); ?>" rel="stylesheet">
+    <script src="<?php echo asset('js/jquery-1.11.3.min.js'); ?>"></script>
+    <!-- Include roboto.css to use the Roboto web font, material.css to include the theme and ripples.css to style the ripple effect -->
+	<link href="<?php echo asset('/css/roboto.min.css'); ?>" rel="stylesheet"> 
+    <link href="<?php echo asset('/css/material.min.css'); ?>" rel="stylesheet">
+    <link href="<?php echo asset('/css/ripples.min.css'); ?>" rel="stylesheet">
+    
+    <?php echo $__env->yieldContent('script'); ?>
+    
+</head>
+<body>
+    
+    <?php echo $__env->yieldContent('content'); ?>
+ 
+<script src="<?php echo asset('js/bootstrap.min.js'); ?>"></script>
+</body>
+</html>

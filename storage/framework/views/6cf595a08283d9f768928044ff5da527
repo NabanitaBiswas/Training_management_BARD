@@ -1,0 +1,45 @@
+<?php $__env->startSection('title', 'Clients'); ?>
+<?php $__env->startSection('content'); ?>
+    <section class="content-2" style="background-color: rgb(255, 255, 255);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <?php if($clients->isEmpty()): ?>
+                        <p>There is no Clients</p>
+                    <?php else: ?>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Clients Name</th>
+                                <th>Clients Email</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php $i = 0 ?>
+                            <?php foreach($clients as $client): ?>
+                                <?php $i++ ?>
+                                <tr>
+                                    <th scope="row"><?php echo e($i); ?></th>
+                                    <td><a href="<?php echo URL::to('clients/'. $client->id); ?>"><?php echo $client->client_name; ?></a></td>
+                                    <td><?php echo $client->client_email; ?></td>
+                                    <td>
+                                        <a href="<?php echo action('BardClientsController@edit', $client->id); ?>" class="btn btn-info pull-left">Edit</a>
+                                        <form method="post" action="<?php echo action('BardClientsController@destroy', $client->id); ?>">
+                                            <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                                            <button type="submit" class="btn btn-warning">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </section>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

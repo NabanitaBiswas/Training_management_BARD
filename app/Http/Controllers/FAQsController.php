@@ -10,6 +10,11 @@ use App\Http\Controllers\Controller;
 
 class FAQsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin', ['only' => ['create','store','edit','update','destroy','adminList']]);//for selected multiple files
+        //$this->middleware('auth',['except'=>'index']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -59,13 +64,12 @@ class FAQsController extends Controller
      */
     public function show($id)
     {
-        $FAQs=FAQ::wheretraining_id($id)->get();
-        return view('frequently_asked_questions.public.show',compact('FAQs'));
     }
     public function adminList()
     {
         $FAQs=FAQ::all();
-        return view('frequently_asked_questions.show',compact('FAQs'));
+        $trainings=Training::select('id','training_name')->get();
+        return view('frequently_asked_questions.show',compact('FAQs','trainings'));
     }
 
     /**

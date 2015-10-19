@@ -1,4 +1,4 @@
-@extends('master/master')
+@extends('admin/layouts/master')
 @section('content')
     <br>
     <div class="container">

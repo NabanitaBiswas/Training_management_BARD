@@ -1,0 +1,37 @@
+<?php $__env->startSection('title', 'View all courses'); ?>
+<?php $__env->startSection('content'); ?>
+
+    <div class="container col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2> Courses </h2>
+                </div>
+                <?php if($courses->isEmpty()): ?>
+                    <p> There is no course available.</p>
+                <?php else: ?>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Course Name</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach($courses as $course): ?>
+                                <tr>
+                                    <td><?php echo $course->id; ?></td>
+                                    <td>
+                                        <a href="<?php echo action('CourseController@show', $course->id); ?>"><?php echo $course->course_name; ?> </a>
+                                    </td>
+                                    
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                <?php endif; ?>
+            </div>
+    </div>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

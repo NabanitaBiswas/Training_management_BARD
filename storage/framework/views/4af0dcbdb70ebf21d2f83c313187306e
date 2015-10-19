@@ -1,0 +1,35 @@
+<?php $__env->startSection('title', 'Trainee'); ?>
+<?php $__env->startSection('content'); ?>
+ <div class="container col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2>All the Trainees</h2>
+                </div>
+                <?php if($infos->isEmpty()): ?>
+                    <p> There is no data in database.</p>
+                <?php else: ?>
+                    <table class="table" >
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                
+                                <th>Trainee ID</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach($infos as $info): ?>
+                                <tr>
+                                    <td> <a href="<?php echo action('InfosController@show', $info->slug); ?>"><?php echo $info->name; ?> </a> </td>
+                                    
+                                    <td><?php echo $info->trainee_id; ?></td>
+                                    
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                <?php endif; ?>
+            </div>
+    </div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master/master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

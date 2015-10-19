@@ -8,23 +8,66 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\HealthFormRequest;
 use App\HealthReport;
 use App\HealthExam;
+use App\Trainer;
+use App\Feedback;
+use App\Info;
+use Auth;
+use DB;
 class AdminController extends Controller
 {
+
+    public function feedbackIndex()
+    {
+        $feedbacks = Feedback::with('trainer')->distinct()->select('trainer_id')->get();
+        $trainers = Trainer::all();
+     
+        return view('admin.feedbacks.index', compact('feedbacks','trainers'));
+    }
+    
+    public function feedbackShow($id)
+    {
+        $feedbacks = Feedback::where('trainer_id', '=', $id)
+                 ->with('trainer')
+                ->join('trainers', 'trainers.id', '=', 'feedbacks.trainer_id')
+                ->select('*',DB::raw('AVG(voice_range) as voice_range,
+                            AVG(voice_clearity) as voice_clearity,
+                            AVG(communication_skills) as communication_skills,
+                            AVG(rapport_building) as rapport_building,
+                            AVG(topic_usefulness) as topic_usefulness,
+                            AVG(interaction) as interaction,
+                            AVG(material_organization) as material_organization,
+                            AVG(speakers_knowledge) as speakers_knowledge'))
+                ->get();
+      
+        foreach($feedbacks as $f){
+                $sum= $f->voice_range+$f->voice_clearity+$f->communication_skills+$f->rapport_building+$f->topic_usefulness+$f->interaction+$f->material_organization+$f->speakers_knowledge;
+    }
+        $avg = $sum/8;
+       
+        return view('admin.feedbacks.show', compact('feedbacks', 'avg'));
+    
+    }
+    
+    public function healthView()
+    {
+        $healthInfo = HealthReport::whereUserId($id)->firstOrFail();
+        $healthExam = HealthExam::whereUserId($id)->firstOrFail();
+        return view('health.show', compact('healthInfo','healthExam'));
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function adminHealth()
-    {
-        return view('master');
-    }
+
 
 
     public function index()
     {
-        $healthInfos = HealthReport::all();
-        return view('admin.AdminHealth.adminHealthInfos', compact('healthInfos'));
+        //$healthInfos = HealthReport::all();
+        $healthReport = Info::all();
+        //dd($healthReport);
+        return view('admin.AdminHealth.adminHealthInfos', compact('healthReport'));
     }
 
     /**

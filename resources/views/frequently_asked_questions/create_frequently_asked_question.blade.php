@@ -2,8 +2,8 @@
 @section('title', 'Create FAQS')
 
 @section('content')
-    <div class="container col-md-8 col-md-offset-2">
-        <div class="well well bs-component" style="background-color: #43A047; color:white; font-size:larger" align="center"><h1>Frequently Asked Questions</br>(FAQs)</h1></div>
+    <div class="container col-md-10 col-md-offset-2">
+        <div class="well well bs-component" style="background-color: #43A047; color:white; font-size:larger" align="center"><h1>Frequently Asked Questions(FAQs)</h1></div>
         <div class="well well bs-component">
             <form class="form-horizontal" method="post">
                 @foreach ($errors->all() as $error)
@@ -53,7 +53,7 @@
                     <div class="form-group">
                         <label for="content" class="col-lg-2 control-label"><font color="#009688" size="3">Answer</font></label>
                         <div class="col-lg-10">
-                            <textarea class="form-control" rows="4" id="answer" placeholder="Write answer" name="answer" value="{{ old('answer')}}"></textarea>
+                            <textarea class="form-control" rows="4" id="answer" placeholder="Write answer" name="answer" value="">{{ old('answer')}}</textarea>
 
                         </div>
                     </div>

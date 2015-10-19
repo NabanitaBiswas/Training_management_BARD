@@ -1,5 +1,5 @@
 @extends('master.master')
-@section('title', 'View a FAQs')
+@section('title', 'FAQs')
     <style>
         label{
             color: #009688;
@@ -12,7 +12,7 @@
 @section('content')
     <div class="container col-md-10 col-md-offset-1">
         <div class="well well bs-component">
-
+            <div class="well well bs-component" style="background-color: #43A047; color:white; font-size:larger" align="center"><h1>Frequently Asked Questions</br>(FAQs)</h1></div>
             <div class="content">
 
                 @if (session('status'))

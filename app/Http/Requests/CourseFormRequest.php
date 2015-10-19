@@ -27,18 +27,10 @@ class CourseFormRequest extends Request
     {
         return [
         'course_name'    => 'required|min:3',
-        'introduction'   => 'required|min:10',
-		'objectives'     => 'required|min:3',
+        'introduction'   => 'required|min:5',
 		'course_contents'=> 'required|min:3',
-		'training_methods'=> 'required|min:3',
-        'participants' => 'required|min:3',
         'duration' => 'required|min:3',
-        'academic_staff' => 'required|min:3',
-        'course_fee' => 'required|min:3',
-        'accommodation_and_food' => 'required|min:3',
-        'library' => 'required|min:3',
-        'award' => 'required|min:3',
-        'address_for_correspondence' => 'required|min:3',
+        'course_fee' => 'required|min:2',
         'training_id' => 'required'
        
     ];

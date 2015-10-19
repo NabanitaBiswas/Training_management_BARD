@@ -1,0 +1,140 @@
+<?php $__env->startSection('title', 'Form'); ?>
+
+<?php $__env->startSection('content'); ?>
+    <div class="container col-md-8 col-md-offset-2">
+        <div class="well well bs-component">
+        	 <h3 class="text-center">Add a Course</h3>
+           
+            <form class="form-horizontal" method="post" enctype="multipart/form-data">
+				
+				<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"> 
+				<?php foreach($errors->all() as $error): ?>
+					<p class="alert alert-danger"><?php echo e($error); ?></p>
+				<?php endforeach; ?>
+				
+                <div class="form-group">
+                        <label for="inputCourseName" class="col-sm-4 control-label">Course Name:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputCourseName" name="course_name"  value="<?php echo e(old('course_name')); ?>" placeholder="Course Name">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="inputIntroduction" class="col-sm-4 control-label">Introduction:</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" rows="3" name="introduction" ><?php echo e(Input::old('introduction')); ?></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="inputObjectives" class="col-sm-4 control-label">Objectives:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputObjectives" name="objectives" value="<?php echo e(old('objectives')); ?>"  placeholder="Objectives">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="inputCourseContents" class="col-sm-4 control-label">Course Contents:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputCourseContents" name="course_contents" value="<?php echo e(old('course_contents')); ?>" placeholder="Course Contents">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="inputTrainingMethods" class="col-sm-4 control-label">Traning Methods:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputTrainingMethods" name="training_methods" value="<?php echo e(old('training_methods')); ?>" placeholder="Training Methods">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="inputParticipants" class="col-sm-4 control-label">Participants:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputParticipants" name="participants" value="<?php echo e(old('participants')); ?>"  placeholder="Participants">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="inputDuration" class="col-sm-4 control-label">Duration:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputDuration" name="duration" value="<?php echo e(old('duration')); ?>" placeholder="Duration">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputAcademicStaff" class="col-sm-4 control-label">Academic Staff:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputAcademicStaff" name="academic_staff" value="<?php echo e(old('academic_staff')); ?>"  placeholder="Academic Staff">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputCourseFee" class="col-sm-4 control-label">Course Fee:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputCourseFee" name="course_fee" value="<?php echo e(old('course_fee')); ?>" placeholder="Course Fee">
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="form-group">
+                        <label for="inputAccommodationAndFood" class="col-sm-4 control-label">Accommodation and Food:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputAccommodationAndFood" name="accommodation_and_food" value="<?php echo e(old('accommodation_and_food')); ?>"placeholder="Accommodation and Food">
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="form-group">
+                        <label for="inputLibrary" class="col-sm-4 control-label">Library:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputLibrary" name="library" value="<?php echo e(old('library')); ?>" placeholder="Library">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="inputAward" class="col-sm-4 control-label">Award:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputAward" name="award" value="<?php echo e(old('award')); ?>" placeholder="Award">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="inputAddressForCorrespondence" class="col-sm-4 control-label">Address for Correspondence:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputAddressForCorrespondence" name="address_for_correspondence" value="<?php echo e(old('address_for_correspondence')); ?>" placeholder="Address for Correspondence">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="inputTrainingName" class="col-sm-4 control-label">Training Name:</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" name="training_id">
+                             
+                                <?php foreach($trainings as $training): ?>
+                                <option value="<?php echo e($training->id); ?>"><?php echo e($training->training_name); ?></option>
+
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+
+                     <div class="form-group">
+                        <label for="Image" class="col-sm-4 control-label">Course Image:</label>
+                        <div class="col-sm-8">
+                            <input type="file" class="field" id="Image" name="course_image">
+                             <p class="help-block">Dimention Home Page: 240px X 140px (image must be smaller than 150KB)<br/>Dimention Slide: 480px X 306px(image must be smaller than 150KB)</p>
+                        </div>
+                    </div>
+
+					<div class="form-group">
+						<label for="inputTrainer" class="col-sm-4 control-label"></label>
+						<div class="col-sm-8">
+                            <button type="submit" class="btn btn-primary">Add Course</button>
+                        </div>
+                    </div>
+
+            </form>
+        </div>
+    </div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
